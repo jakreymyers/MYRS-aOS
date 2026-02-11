@@ -20,8 +20,8 @@
     "supersededBy": null,
     "relatedEntities": [],
     "id": "membership-002",
-    "lastAccessed": "2026-02-10",
-    "accessCount": 1
+    "lastAccessed": "2026-02-11",
+    "accessCount": 2
   },
   {
     "fact": "APS conducts formal Membership Survey with unit-level analysis (2024 data file: 2.8 MB Excel workbook); survey-driven member engagement strategy",
@@ -32,8 +32,8 @@
     "supersededBy": null,
     "relatedEntities": [],
     "id": "membership-003",
-    "lastAccessed": "2026-02-10",
-    "accessCount": 1
+    "lastAccessed": "2026-02-11",
+    "accessCount": 2
   },
   {
     "fact": "APS exploring member data use cases through Actable Discovery project (stakeholder interviews updated 2026-02-07); data platform evaluation underway",
@@ -46,8 +46,8 @@
       "projects/actable-discovery"
     ],
     "id": "membership-004",
-    "lastAccessed": "2026-02-10",
-    "accessCount": 1
+    "lastAccessed": "2026-02-11",
+    "accessCount": 2
   },
   {
     "fact": "APS conducts formal membership surveys with unit-level analysis (2024 APS Membership Survey Data File, 2.8 MB Excel workbook) and maintains donor cultivation/stewardship processes.",
@@ -58,7 +58,7 @@
     "supersededBy": null,
     "relatedEntities": [],
     "id": "membership-005",
-    "lastAccessed": "2026-02-10",
-    "accessCount": 1
+    "lastAccessed": "2026-02-11",
+    "accessCount": 2
   }
 ]
