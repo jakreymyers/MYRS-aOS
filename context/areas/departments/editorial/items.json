@@ -1,0 +1,90 @@
+[
+  {
+    "fact": "Editorial department led by Jessica Thomas, responsible for 17 world-leading physics journals and Physics Magazine",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-jun-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/jessica-thomas"
+    ],
+    "id": "editorial-001",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Daniel Ucko serves as Head of Ethics and Research Integrity; Jennifer Tommolino is Executive Assistant",
+    "category": "relationship",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-jun-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "editorial-002",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Editorial department has approximately 70-80 direct staff members",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-jun-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "editorial-003",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Structure: Associate Executive Editors oversee journal portfolios by theme; each journal has a Chief Editor leading 4-20 Associate Editors; Managing Editors and Assistant Editors support journals with external editorial teams",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-jun-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "editorial-004",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Key responsibilities: evaluate manuscripts for significance/rigor/relevance (peer review), follow research trends, invite research and cultivate reviewer pool, champion ethics and research integrity, make physics visible and interesting",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-jun-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "editorial-005",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Current topical groups inviting research in: astronomy/astrophysics, biological physics, climate/sustainability, chemical physics, experimental condensed matter physics",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-jun-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "editorial-006",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Currently experimenting with AI policy for editorial operations",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-jun-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "resources/aps-ai-policy"
+    ],
+    "id": "editorial-007",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  }
+]

@@ -1,0 +1,64 @@
+[
+  {
+    "fact": "APS conducts a formal Membership Survey with unit-level highlights analysis, most recently the 2024 APS Membership Survey (2.8 MB Excel workbook)",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "manual-ingestion-2026-02-08",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "membership-001",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "APS is exploring member data use cases through the Actable Discovery project with stakeholder interviews underway (February 2026)",
+    "category": "status",
+    "timestamp": "2026-02-09",
+    "source": "manual-ingestion-2026-02-08",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "membership-002",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "APS conducts formal Membership Survey with unit-level analysis (2024 data file: 2.8 MB Excel workbook); survey-driven member engagement strategy",
+    "category": "status",
+    "timestamp": "2026-02-09",
+    "source": "drive-search-2026-02-09",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "membership-003",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "APS exploring member data use cases through Actable Discovery project (stakeholder interviews updated 2026-02-07); data platform evaluation underway",
+    "category": "status",
+    "timestamp": "2026-02-09",
+    "source": "drive-search-2026-02-09",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "projects/actable-discovery"
+    ],
+    "id": "membership-004",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "APS conducts formal membership surveys with unit-level analysis (2024 APS Membership Survey Data File, 2.8 MB Excel workbook) and maintains donor cultivation/stewardship processes.",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "drive-research",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "membership-005",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  }
+]

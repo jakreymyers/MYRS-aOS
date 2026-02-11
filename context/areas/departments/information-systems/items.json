@@ -1,0 +1,445 @@
+[
+  {
+    "id": "information-systems-001",
+    "fact": "IS (Information Systems) department led by Mark Doyle (CIO) and Jak Myers (Director of Information Systems)",
+    "category": "relationship",
+    "timestamp": "2025-12-01",
+    "source": "org-chart-dec-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/mark-doyle",
+      "people/jak-myers"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "information-systems-002",
+    "fact": "Jak has 6 direct reports: Mike Papile (Head of Digital Engineering), Jen Keating (Head of Product Development & Delivery), Chris Coleman (Head of Experience Design), Dan Hudson (Head of Technical Operations), Jessica Stepnoski (Head of Customer Experience), Fletcher Forehand (Lead Technical Project & Portfolio Manager)",
+    "category": "status",
+    "timestamp": "2025-12-01",
+    "source": "org-chart-dec-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/mike-papile",
+      "people/jen-keating",
+      "people/chris-coleman",
+      "people/dan-hudson",
+      "people/jessica-stepnoski",
+      "people/fletcher-forehand"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "information-systems-003",
+    "fact": "CIO direct staff: Jak (Director of Information Systems) and Regina Schiavoni (CIO Assistant)",
+    "category": "relationship",
+    "timestamp": "2025-12-01",
+    "source": "org-chart-dec-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/mark-doyle"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "information-systems-004",
+    "fact": "Digital Engineering (Mike Papile) has 3 teams: Pre-Pub Systems (Lenny M., Team Lead; Christian B., Danielle K., John M., Aaron M.), Digital Services (Mat M., Team Lead; Brett G., Geng L., Mike K.), Data Platform & Web Solutions (Phil M., Team Lead; Web Solutions: Robert P. Staff Dev/Architect, Justin W., Mike D.; Data Platform: Sophie D., Arthur S., Xiaoyan W.)",
+    "category": "status",
+    "timestamp": "2025-12-01",
+    "source": "org-chart-dec-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/mike-papile"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "information-systems-005",
+    "fact": "Product Development & Delivery (Jen Keating) has Product Owners (Dan B. Digital Experience Sr. PO, Charles H. PRISM/Journals Sr. PO, Janel C. Salesforce/Nimble Sr. PO, Kidus A. Data Platform PO, Paul L. Salesforce/Nimble BA) and IT PMO (Joshua O. and Mary K., Project Managers)",
+    "category": "status",
+    "timestamp": "2025-12-01",
+    "source": "org-chart-dec-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/jen-keating",
+      "people/kidus-asamenew",
+      "people/janel-carpenter",
+      "people/charles-hammer"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "information-systems-006",
+    "fact": "Experience Design (Chris Coleman) has UX/UI Design with Alex Busbee (Web Strategist)",
+    "category": "status",
+    "timestamp": "2025-12-01",
+    "source": "org-chart-dec-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/chris-coleman",
+      "people/alex-busbee"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "information-systems-007",
+    "fact": "Technical Operations (Dan Hudson) has System Admin (Milton V., Enterprise Apps Admin) and Technical Support (Nathan W., Bob T.)",
+    "category": "status",
+    "timestamp": "2025-12-01",
+    "source": "org-chart-dec-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/dan-hudson",
+      "people/milton-villatoro"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "information-systems-008",
+    "fact": "Customer Experience (Jessica Stepnoski) has CX Systems (Christina B., Business Systems Analyst CSG) and Customer Support (Tydria C., Jordan S.)",
+    "category": "status",
+    "timestamp": "2025-12-01",
+    "source": "org-chart-dec-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/jessica-stepnoski"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "information-systems-009",
+    "fact": "Department mission: 'We empower APS to advance physics by uniting product development, user-centered design, innovative engineering solutions, and exceptional support.'",
+    "category": "context",
+    "timestamp": "2025-09-17",
+    "source": "cmt-presentation-sep-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "information-systems-010",
+    "fact": "7 strategic themes for 2026: (1) Product Management/UX/Portfolio, (2) AI & Automation, (3) Cybersecurity/Data Governance/Risk, (4) BI & Data Culture, (5) Rationalize/Standardize/Modernize Systems, (6) Operational Efficiency/Reduce Friction, (7) Psychological Safety & Team Culture",
+    "category": "status",
+    "timestamp": "2025-09-17",
+    "source": "cmt-presentation-sep-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "projects/2026-is-planning"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "information-systems-011",
+    "fact": "Portfolio scale as of Sep 2025: 84 total projects, 26,108 tasks, 21,056 completed, 50+ projects in-flight, 53 key results on track, 4 at risk, 0 off track",
+    "category": "milestone",
+    "timestamp": "2025-09-17",
+    "source": "cmt-presentation-sep-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "information-systems-012",
+    "fact": "Co-sponsors 3 cross-functional groups: DAWG (Data Analytics Working Group, contacts: Kidus & Jen), DataWranglers (Salesforce/Nimble, contacts: Janel & Jen), Workflow Optimization (Publications, contacts: Charles & Chris Thickett)",
+    "category": "preference",
+    "timestamp": "2025-09-17",
+    "source": "cmt-presentation-sep-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/teams/dawg",
+      "people/kidus-asamenew",
+      "people/jen-keating",
+      "people/janel-carpenter"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "information-systems-013",
+    "fact": "IS + HR collaboration areas: identity & access lifecycle automation, joint policy development (HR behavioral + IS technical), employee communication, new hire onboarding workflow with Slack automation and IT fact-finding form",
+    "category": "context",
+    "timestamp": "2025-09-17",
+    "source": "cmt-presentation-sep-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "projects/hr-automation"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "information-systems-014",
+    "fact": "Org chart as of Dec 2025 shows ~41 staff across all functions including CIO office, with 'Hire First' and 'Next Hire' positions flagged as open",
+    "category": "status",
+    "timestamp": "2025-12-01",
+    "source": "org-chart-dec-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "information-systems-015",
+    "fact": "Fletcher Forehand moved from IT PMO (under Jen K.) to direct report to Jak as Lead Technical Project & Portfolio Manager between Sep and Dec 2025",
+    "category": "milestone",
+    "timestamp": "2025-12-01",
+    "source": "org-chart-dec-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/fletcher-forehand",
+      "people/jen-keating"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Information Systems department at APS includes four to five core functions: product, engineering, technical operations, customer experience, and digital experience.",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "2026-02-09",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/companies/aps"
+    ],
+    "id": "information-systems-016",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Information Systems technical staff exhibit variability in AI tool maturity: advanced users (like Jak Myers and Mike Papile) use AI tools daily for complex tasks, while others dabble occasionally; significant capability gap exists in ensuring high-quality outputs and understanding best practices.",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "2026-02-09",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/jak-myers",
+      "people/mike-papile"
+    ],
+    "id": "information-systems-017",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Technical staff concerns about AI include code hallucination and quality assurance risks when developers use agentic coding assistants without full understanding or proper review of generated code.",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "2026-02-09",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "information-systems-018",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "IS department includes four to five core functions: product, engineering, technical operations, customer experience, and digital experience",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "user clarification",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/companies/aps"
+    ],
+    "id": "information-systems-019",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "IS department at APS comprises five core functions: product, engineering, technical operations, customer experience, and digital experience",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "session-a924d713",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/jak-myers"
+    ],
+    "id": "information-systems-020",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "IS department comprises four or five core functions: product, engineering, technical operations, customer experience, and digital experience",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "2026-02-09",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "projects/aos-advocacy"
+    ],
+    "id": "information-systems-021",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "APS Information Systems department comprises five core functions: product, engineering, technical operations, customer experience, and digital experience; target audience for Tier 3 AOS advocacy presentation",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "2026-02-09",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/companies/aps"
+    ],
+    "id": "information-systems-022",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "IS department will be expanded Tier 3 audience for AOS presentation; includes five core functions: product, engineering, technical operations, customer experience, and digital experience",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "2026-02-09",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/companies/aps"
+    ],
+    "id": "information-systems-023",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "APS Information Systems department includes four to five core functions: product, engineering, technical operations, customer experience, and digital experience; targeted as Tier 3 presentation audience for AOS advocacy",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "2026-02-09",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/companies/aps"
+    ],
+    "id": "information-systems-024",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "IS department includes four to five core functions: product, engineering, technical operations, customer experience, digital experience; broader staff tier for AOS Advocacy presentation after SLT alignment",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "session-01",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/companies/aps"
+    ],
+    "id": "information-systems-025",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "IS department at APS contains significant capability chasm between daily AI power users (Jak Myers, Mike Papile) and occasional dabblers, creating variable AI competency and output quality across organization.",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "User assessment of team dynamics",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/companies/aps"
+    ],
+    "id": "information-systems-026",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "IS department comprises five core functions: product, engineering, technical operations, customer experience, and digital experience; broader IS team is Tier 3 audience for aos-advocacy presentation rollout.",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "User org structure description",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/companies/aps"
+    ],
+    "id": "information-systems-027",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "The information systems department at APS has five core functions: product, engineering, technical operations, customer experience, and digital experience",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "session-a924d713",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/companies/aps"
+    ],
+    "id": "information-systems-028",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Information systems department at APS comprises five core functions: product, engineering, technical operations, customer experience, and digital experience; Jak-Myers is responsible for this department",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "session-a924d713",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/jak-myers",
+      "areas/companies/aps"
+    ],
+    "id": "information-systems-029",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "IS department is Tier 3 presentation audience; includes five core functions: product, engineering, technical operations, customer experience, digital experience",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "2026-02-09",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/companies/aps"
+    ],
+    "id": "information-systems-030",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "IS department manages 41 high-involvement assignments across 42 strategic initiatives in 2026; 31 initiatives require IS technology enablement with Q2 peak of 32 concurrent initiatives.",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "knowledge-graph-mining",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/companies/aps"
+    ],
+    "id": "information-systems-031",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  }
+]

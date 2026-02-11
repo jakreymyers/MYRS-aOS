@@ -1,0 +1,62 @@
+[
+  {
+    "fact": "Strategic Communications (StratComms) mission: \"Our mission is to advance APS goals through integrated storytelling, modern approaches, and trusted engagement\"",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-oct-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "strategic-communications-001",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Seven functional areas: Society Communications, Science Communications, Internal Communications, APS News, Email, Social Media, Leadership Communications & Reputation",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-oct-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "strategic-communications-002",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Key audiences: members, scientists, policymakers, public, and staff",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-oct-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "strategic-communications-003",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Department undergoing transformation \"from coordination to transformation\" with four priorities: integrated intake/planning, defined workflows, measurement/reporting, and scalable growth",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-oct-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "strategic-communications-004",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "No specific department head, staffing numbers, or org chart provided in CMT Corner presentation (Oct 2025)",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-oct-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "strategic-communications-005",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  }
+]

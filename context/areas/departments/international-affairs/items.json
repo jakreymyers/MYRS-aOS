@@ -1,0 +1,91 @@
+[
+  {
+    "fact": "International Affairs (INTAF) led by Amy Flatten (Director), reporting to Francis Slakey (Chief External Affairs Officer, SLT member)",
+    "category": "relationship",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-apr-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/amy-flatten",
+      "people/francis-slakey"
+    ],
+    "id": "international-affairs-001",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Team of 5: Amy Flatten (Director), Michele Irwin (Senior International Programs Manager), Shanaz Sulejmanovic (International Programs Manager), Lais Ribeiro (International Programs Associate)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-apr-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "international-affairs-002",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Mission: help APS convene and connect the global physics community, establish APS as a Welcoming Global Hub, expand partnerships with national physics societies and international physics organizations",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-apr-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "international-affairs-003",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Managed 17 satellite sites with 11 contributed sessions and 6 watch parties for 2025 Global Physics Summit",
+    "category": "milestone",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-apr-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "projects/global-physics-summit"
+    ],
+    "id": "international-affairs-004",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Sloan Foundation grant supporting scientists affected by Russian invasion of Ukraine: 15 physicists collaborated with US/Europe partners, 5 grad students/postdocs attended international conferences, 3 physicists relocated to Italy",
+    "category": "milestone",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-apr-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "international-affairs-005",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "African Physics Newsletter: 1,226 subscribers across 40 African countries + diaspora, 46.2% open rate \u2014 highest of all APS newsletters (Nov 2024)",
+    "category": "milestone",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-apr-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "international-affairs-006",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Active concern: US administration policies affecting international scientific collaboration, student mobility/visa issues, restrictions on visits/collaboration with certain scientists",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-apr-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "international-affairs-007",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  }
+]

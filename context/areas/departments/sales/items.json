@@ -1,0 +1,88 @@
+[
+  {
+    "fact": "Global Sales department led by Dylan Moulton (Director of Global Sales), with 12 staff total",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-aug-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/dylan-moulton"
+    ],
+    "id": "sales-001",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Two operational divisions: Sales Operations (technical processes \u2014 licensing, invoicing, renewals, contact via Asana) and Institutional Sales (complex account management, revenue growth, market feedback, contact via email/Slack)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-aug-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "sales-002",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Team members: Thu Tram, Erika Valenti (direct reports), Jamie Casey, Jesse Hulseberg, Ruth Eeshak-Gillespie, Lauren Millner, Patrick Hartner, Jay Solomon, Eileen LaMarca, Bin Walters",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-aug-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "sales-003",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Department mission: market-facing department working with institutions, product/policy stakeholders to accelerate dissemination of APS research and increase revenues",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-aug-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "sales-004",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Five key responsibilities: increase annual revenue, minimize risk through license/client management, renew existing business efficiently, build/deliver products serving market needs, deliver outstanding customer support",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-aug-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "sales-005",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Strategic project: ecommerce solution enabling customer-led renewals and business model migration (aligned to P1A2G1, P1A3G1, P1A3G2)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-aug-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "sales-006",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Strategic project: Green Open Access (OA) business model creation and delivery (aligned to P1A3G2 \u2014 develop and scale new products)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-aug-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "sales-007",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  }
+]

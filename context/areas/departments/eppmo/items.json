@@ -1,0 +1,223 @@
+[
+  {
+    "id": "eppmo-001",
+    "fact": "EPPMO (Enterprise Portfolio & Project Management Office) responsible for APS strategic portfolio governance",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "agent-research-2026-02-08",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "eppmo-002",
+    "fact": "Led by Dona Williams with team including Seth Mueller and Janay Oliver",
+    "category": "relationship",
+    "timestamp": "2026-02-08",
+    "source": "agent-research-2026-02-08",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/dona-williams"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "eppmo-003",
+    "fact": "Launched SOAR using Asana Enterprise as execution platform",
+    "category": "milestone",
+    "timestamp": "2025-11-01",
+    "source": "agent-research-2026-02-08",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "projects/soar-eppmo"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "eppmo-004",
+    "fact": "Uses Lean Charter process for 2026 initiatives requiring problem/value statement, RACI, Definition of Done",
+    "category": "preference",
+    "timestamp": "2026-02-08",
+    "source": "agent-research-2026-02-08",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "projects/2026-lean-charter-analysis"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "eppmo-005",
+    "fact": "Provided AI-generated draft charters as optional starting points for initiative leads",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "agent-research-2026-02-08",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "eppmo-006",
+    "fact": "Office hours offered Dec 19, 2025 and Jan 9, 2026 for Lean Charter drafting support",
+    "category": "milestone",
+    "timestamp": "2026-01-09",
+    "source": "agent-research-2026-02-08",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "eppmo-007",
+    "fact": "Manages five portfolio governance decks: CEO/SLT, CMT/Directors, Initiative Leads, Internal, Shared Services",
+    "category": "preference",
+    "timestamp": "2026-02-08",
+    "source": "agent-research-2026-02-08",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "id": "eppmo-008",
+    "fact": "Presented Business Plan update to CMT Jan 29, 2026",
+    "category": "milestone",
+    "timestamp": "2026-01-29",
+    "source": "agent-research-2026-02-08",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "projects/2026-business-plan",
+      "areas/teams/cmt"
+    ],
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "EPPMO produces audience-specific portfolio review decks: CEO/SLT View, CMT Directors View, Initiative Leads View, EPPMO Internal View, and Shared Services View",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "manual-ingestion-2026-02-08",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "eppmo-009",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Lean charter analysis is the primary mechanism for initiative scoring and portfolio governance at APS, with structured outputs tailored to each governance tier",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "manual-ingestion-2026-02-08",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "eppmo-010",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "EPPMO maintains a 2026 Business Plan (internal) and coordinates with IS Portfolio tracking via Airtable-to-Google-Sheets sync",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "manual-ingestion-2026-02-08",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "eppmo-011",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "EPPMO produces 5 audience-specific portfolio review decks from Lean Charter Master Workbook: CEO/SLT View, CMT Directors View, Initiative Leads View, EPPMO Internal View, Shared Services View",
+    "category": "status",
+    "timestamp": "2026-02-09",
+    "source": "drive-search-2026-02-09",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "projects/agentic-os"
+    ],
+    "id": "eppmo-012",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "EPPMO maintains Airtable-synced IS Portfolio tracker (178 KB, updated daily) as operational source of truth for 42 initiatives",
+    "category": "status",
+    "timestamp": "2026-02-09",
+    "source": "drive-search-2026-02-09",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "eppmo-013",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "EPPMO produces 5 audience-specific portfolio review decks per cycle: CEO/SLT View, CMT Directors View, Initiative Leads View, EPPMO Internal View, Shared Services View. All updated together on same day (2026-02-06).",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "drive-research",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "projects/aos-advocacy"
+    ],
+    "id": "eppmo-014",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "EPPMO lean charter analysis produces Master Workbook, Executive Summary, and Narrative Analysis documents. Reviewed annually (2026 versions updated 2026-02-06).",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "drive-research",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "eppmo-015",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "EPPMO produces 5 audience-specific portfolio review decks per review cycle (CEO/SLT View, CMT Directors View, Initiative Leads View, EPPMO Internal View, Shared Services View), currently manually compiled from Lean Charter Master Workbook and Airtable-synced portfolio tracker.",
+    "category": "process",
+    "timestamp": "2026-02-09",
+    "source": "drive-research-agent-1",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "projects/aos-advocacy"
+    ],
+    "id": "eppmo-016",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "EPPMO produces 5 audience-tailored portfolio review decks (CEO/SLT View, CMT Directors View, Initiative Leads View, EPPMO Internal View, Shared Services View) from a single Lean Charter Master Workbook and Airtable-synced portfolio tracker",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "Session 2 Drive research",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/departments/information-systems"
+    ],
+    "id": "eppmo-017",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  }
+]

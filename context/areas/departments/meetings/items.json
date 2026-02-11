@@ -1,0 +1,38 @@
+[
+  {
+    "fact": "APS has a dedicated Meetings Department with a running discussion agenda document (5.2 MB), indicating active conference and event planning operations",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "manual-ingestion-2026-02-08",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "meetings-001",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "APS Meetings Department maintains 5.2 MB running agenda document (updated 2026-02-06) for conference and event planning operations",
+    "category": "status",
+    "timestamp": "2026-02-09",
+    "source": "drive-search-2026-02-09",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "meetings-002",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "APS has a dedicated Meetings Department managing conferences and internal meetings. Active running agenda document (5.2 MB, updated 2026-02-06) indicates ongoing conference planning operations.",
+    "category": "context",
+    "timestamp": "2026-02-09",
+    "source": "drive-research",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "meetings-003",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  }
+]

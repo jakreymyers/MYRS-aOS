@@ -1,0 +1,92 @@
+[
+  {
+    "fact": "Finance & Reporting department led by Sandy Weldon (Director of Finance & Reporting), with 13 staff total",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-may-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/sandy-weldon"
+    ],
+    "id": "finance-001",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Finance direct reports: Maria Inch (Office & Payroll Manager), Melaku Denbel (Finance Business Analyst), Lakesia Brownlee (Controller)",
+    "category": "relationship",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-may-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/sandy-weldon"
+    ],
+    "id": "finance-002",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Controller (Lakesia Brownlee) manages Grants Team (Kareema Sesay, Miaya Milligan), Publishing Accounting (Janelle Tupper), General Services Accounting (Nichole Davis with Pahola Elder, Dana Alford-Armstrong, Janet Harris, Abtahee Rahman), and Senior Accountant (Marcia Johnson)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-may-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "finance-003",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Department mission: \"We are the financial hub of APS: We provide timely and accurate financial information to support informed decision making\"",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-may-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "finance-004",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Two strategic projects: (1) Implement 3-year rolling business forecast, (2) Vetting possible new accounting system \u2014 both aligned to Pillar 4 (Organizational Effectiveness)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-may-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "finance-005",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Collaborates with Publication Sales on Salesforce CPQ (Configure, Price, Quote) for institutional sales recording, invoicing, monitoring, and sales tax compliance",
+    "category": "relationship",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-may-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/departments/sales"
+    ],
+    "id": "finance-006",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Key responsibilities: corporate credit card/expense/vendor management, revenue recognition, annual financial audit and budget, tax and regulatory compliance, financial reporting and analytics",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-may-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "finance-007",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  }
+]

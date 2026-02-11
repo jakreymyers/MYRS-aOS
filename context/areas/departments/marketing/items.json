@@ -1,0 +1,128 @@
+[
+  {
+    "fact": "Marketing department led by Chris Moe (Director of Marketing, Experience), with 16 staff across four teams",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/chris-moe"
+    ],
+    "id": "marketing-001",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Four teams: Journals & Data (Larry Grodsky, Assistant Director), Content/Brand/Design (Denise Herdemann, Assistant Director), Membership & Meetings (Lauren Hernandez, Assistant Director), Web Marketing (Tanika Williams, Web Manager)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "marketing-002",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Journals & Data team: Shruthi Parvathe (Data Analyst), Emily Richardson (Digital Marketing Manager), Bob Sumner (Marketing Manager, Publishing)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "marketing-003",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Content/Brand/Design team: Courtney Howert (Multimedia Designer), Meghan White (Senior Graphic Designer)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "marketing-004",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Membership & Meetings team (largest): Emma Ferraiuolo, Makenzie Furber, Starr Phillips, LaShelle Ralph (Marketing Specialists)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "marketing-005",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Web Marketing team: Dave Ellis (Web Producer), David Ralph (Web Producer), Merrill Miller (Web Content Editor)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "marketing-006",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Department mission: \"The marketing team drives revenue and promotes physics communities through creativity, innovation, and data analysis\"",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "marketing-007",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Four key responsibility areas: brand elevation, Physical Review Journals growth (submissions/citations/readership), APS meetings participation growth, membership growth",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "marketing-008",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Strategic project: CDP (Customer Data Platform) to unify customer data across Prism, Nimble, Pardot, and Salesforce into unified customer profiles",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/companies/salesforce"
+    ],
+    "id": "marketing-009",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Strategic project: Global Physics Summit year-round marketing support",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "projects/global-physics-summit"
+    ],
+    "id": "marketing-010",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  }
+]

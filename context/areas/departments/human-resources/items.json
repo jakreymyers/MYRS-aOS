@@ -1,0 +1,122 @@
+[
+  {
+    "fact": "HR department led by Beth Gunzel (CHRO), with Johanna Aponte (HR Director) and Shana Bowman (Director of Culture, Engagement & Belonging) as direct reports",
+    "category": "relationship",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-sep-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/beth-gunzel",
+      "people/johanna-aponte",
+      "people/shana-bowman"
+    ],
+    "id": "human-resources-001",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Johanna Aponte's direct reports: Shade Bacote (Head of Talent Acquisition & Design), Fab Colas (Associate HR Director), Ti Pipkin (Senior Manager Total Rewards)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-sep-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/fab-colas",
+      "people/johanna-aponte"
+    ],
+    "id": "human-resources-002",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Additional HR staff: Gia Gatien (Senior HR Generalist, reports to Fab), Nik Moiseyev (HR Coordinator, reports to Fab), Tiwa Adedovin (HR Generalist, reports to Ti)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-sep-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "human-resources-003",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Shana Bowman's team includes Rachel Mayer Friem (Learning & Development Manager)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-sep-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/rachel-friem",
+      "people/shana-bowman"
+    ],
+    "id": "human-resources-004",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "HR supports staff in 30+ states",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-sep-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "human-resources-005",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Five key functions: Talent Acquisition & Workforce Planning (Shade), Performance & Development (Fab/Gia), Total Rewards (Ti), HR Operations & Compliance (Fab/Gia/Nik), Employee Relations (Fab/Gia as HRBPs)",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-sep-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "human-resources-006",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Strategic project: Career Pathing 2026 \u2014 create transparent, equitable organization-wide framework of career levels (just getting started, aligned to P3)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-sep-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "human-resources-007",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Strategic project: ATS (Applicant Tracking System) transition led by Shade Bacote \u2014 launch by Q2 2026, streamlines requisitions/approvals/onboarding (aligned to P3)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-sep-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "human-resources-008",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "IS+HR collaboration: identity & access lifecycle automation, joint policy development, employee communication, new hire onboarding with Slack automation bot and IT fact-finding form",
+    "category": "relationship",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-sep-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "areas/departments/information-systems"
+    ],
+    "id": "human-resources-009",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  }
+]

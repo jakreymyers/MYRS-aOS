@@ -1,0 +1,65 @@
+[
+  {
+    "fact": "Governance led by Jeanette Russo (APS Corporate Secretary), with Vicki Scudlark (APS Corporate Governance Associate); reports to CEO Jonathan Bagger in the Executive Office",
+    "category": "relationship",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-jun-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [
+      "people/jeanette-russo",
+      "people/jonathan-bagger"
+    ],
+    "id": "governance-001",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Compact 2-person unit with wide strategic reach across entire APS organization",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-jun-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "governance-002",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Key responsibilities: strengthen governance framework, support volunteer leadership, foster collaboration and shared ownership of APS mission, cultivate diverse leadership pipeline, advance good governance",
+    "category": "context",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-jun-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "governance-003",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Manages APS General Election (Vice President, General Councilor, International Councilor, Chair-Elect of Nominating Committee) and year-round committee nomination process",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-jun-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "governance-004",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  },
+  {
+    "fact": "Working on APS Units Task Force to realign unit governance and operations \u2014 identify improvements, clarify roles, address risks, achieve governance consistency (aligned to P4A1G1, P4A1G2)",
+    "category": "status",
+    "timestamp": "2026-02-08",
+    "source": "cmt-corner-jun-2025",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": [],
+    "id": "governance-005",
+    "lastAccessed": "2026-02-10",
+    "accessCount": 1
+  }
+]

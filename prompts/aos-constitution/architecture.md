@@ -4,7 +4,7 @@
 
 ```
 agentic-os/
-├── context/     # Reference knowledge (company, departments, personal)
+├── context/     # PARA knowledge graph (projects, people, areas, resources, archives)
 ├── prompts/     # System configuration and reusable prompt templates
 ├── workflows/   # Process definitions
 ├── workspace/   # Personal working files and projects
@@ -40,11 +40,7 @@ context/
 │   └── teams/         # Team context
 ├── resources/         # Topics of interest / reference
 │   └── [topic]/       # summary.md + items.json
-├── archives/          # Inactive items from other buckets
-├── company/           # APS-wide standards (read-only reference)
-│   ├── aOS/           # AOS system documentation
-│   └── aps-strategy/  # Company strategy and goals
-└── personal/          # Personal reference
+└─── archives/         # Inactive items from other buckets
 ```
 
 Each entity directory contains `summary.md` (hot+warm facts) and `items.json` (full atomic fact history).
