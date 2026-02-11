@@ -72,7 +72,7 @@ export const resolveClaudeCodeSessionDir = (): string => {
   if (envRoot) return resolve(envRoot);
   const home = process.env.HOME ?? '';
   const root = resolveAosRoot();
-  const slug = root.replace(/\//g, '-').replace(/^-/, '');
+  const slug = root.replace(/\//g, '-');
   return join(home, '.claude', 'projects', slug);
 };
 
