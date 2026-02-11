@@ -65,7 +65,7 @@ export const runDigest = async (args: string[]): Promise<void> => {
       // Same delta thresholds as v2
       const deltaSize = prev ? Math.abs(size - prev.size) : size;
       const deltaMsgs = prev ? Math.abs(messageCount - prev.messageCount) : messageCount;
-      const shouldProcess = force || (!prev && changed) || (prev && !prev.digestedAt) || (changed && (deltaSize >= 25_000 || deltaMsgs >= 25));
+      const shouldProcess = force || (!prev && changed) || (prev && !prev.digestedAt) || (changed && (deltaSize >= 10_000 || deltaMsgs >= 25));
 
       let extracted = false;
 
