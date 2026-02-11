@@ -67,30 +67,38 @@ export const runDigest = async (args: string[]): Promise<void> => {
       const deltaMsgs = prev ? Math.abs(messageCount - prev.messageCount) : messageCount;
       const shouldProcess = force || (!prev && changed) || (prev && !prev.digestedAt) || (changed && (deltaSize >= 25_000 || deltaMsgs >= 25));
 
+      let extracted = false;
+
       if (shouldProcess) {
-        const sessionId = basename(filePath, '.jsonl');
-        try {
-          const messages = await readSessionMessages(filePath, sessionId);
-          if (messages.length > 0) {
-            const date = messages[0].timestamp
-              ? new Date(messages[0].timestamp).toISOString().slice(0, 10)
-              : new Date().toISOString().slice(0, 10);
+        // Defense-in-depth: skip if content hash matches last extraction
+        if (!force && prev?.digestedHash === contentHash) {
+          // Content unchanged since last extraction — skip
+        } else {
+          const sessionId = basename(filePath, '.jsonl');
+          try {
+            const messages = await readSessionMessages(filePath, sessionId);
+            if (messages.length > 0) {
+              const date = messages[0].timestamp
+                ? new Date(messages[0].timestamp).toISOString().slice(0, 10)
+                : new Date().toISOString().slice(0, 10);
 
-            const result = await runExtraction({
-              messages,
-              date,
-              sessionId,
-              llmCaller: runExtractPrompt,
-              systemPrompt: EXTRACT_SYSTEM_PROMPT,
-              userPromptTemplate: EXTRACT_USER_PROMPT,
-            });
+              const result = await runExtraction({
+                messages,
+                date,
+                sessionId,
+                llmCaller: runExtractPrompt,
+                systemPrompt: EXTRACT_SYSTEM_PROMPT,
+                userPromptTemplate: EXTRACT_USER_PROMPT,
+              });
 
-            totalFacts += result.facts.length;
-            totalEntities += result.newEntities.length;
-            processedCount++;
+              totalFacts += result.facts.length;
+              totalEntities += result.newEntities.length;
+              processedCount++;
+              extracted = true;
+            }
+          } catch (error: any) {
+            console.error(`Failed to extract ${sessionId.slice(0, 8)}: ${error?.message ?? 'unknown'}`);
           }
-        } catch (error: any) {
-          console.error(`Failed to extract ${sessionId.slice(0, 8)}: ${error?.message ?? 'unknown'}`);
         }
       }
 
@@ -101,7 +109,8 @@ export const runDigest = async (args: string[]): Promise<void> => {
         size,
         mtime,
         messageCount,
-        digestedAt: shouldProcess ? new Date().toISOString() : (prev?.digestedAt ?? null),
+        digestedAt: extracted ? new Date().toISOString() : (prev?.digestedAt ?? null),
+        digestedHash: extracted ? contentHash : (prev?.digestedHash ?? null),
       };
     }
 

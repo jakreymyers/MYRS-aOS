@@ -11,8 +11,8 @@
           },
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-mirror && \"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-digest",
-            "timeout": 120,
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-mirror",
+            "timeout": 30,
             "async": true
           }
         ]

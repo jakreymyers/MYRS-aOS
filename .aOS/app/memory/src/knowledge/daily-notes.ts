@@ -35,6 +35,7 @@ export const appendDailyNote = async (options: {
     // File doesn't exist — create with date heading
   }
 
+  const shortId = sessionId.slice(0, 8);
   const entry = formatEntry(sessionId, time, summary, factCount, entityPaths);
 
   if (!existing) {
@@ -42,8 +43,15 @@ export const appendDailyNote = async (options: {
     const content = `# ${date}\n\n${entry}`;
     await writeFile(filePath, content);
   } else {
-    // Append to existing
-    await writeFile(filePath, existing.trimEnd() + '\n\n' + entry);
+    // Replace existing entry for this session, or append if new
+    const pattern = new RegExp(
+      `## Session ${shortId} \\([^)]*\\)\\n[\\s\\S]*?(?=\\n## |$)`
+    );
+    if (pattern.test(existing)) {
+      await writeFile(filePath, existing.replace(pattern, entry.trimEnd()));
+    } else {
+      await writeFile(filePath, existing.trimEnd() + '\n\n' + entry);
+    }
   }
 
   return filePath;

@@ -1,5 +1,5 @@
 import { syncCurrentSession, syncSession, getCurrentSessionId } from '../session/logger';
-import { updateSession } from '../session/state';
+import { updateSession, loadState } from '../session/state';
 import { hashContent } from '../utils/hash';
 import { readFile } from 'node:fs/promises';
 import { resolveSessionLogDir } from '../utils/paths';
@@ -53,10 +53,13 @@ export const runMirror = async (args: string[]): Promise<void> => {
       return;
     }
 
-    // Update session state
+    // Update session state, preserving digestedAt/digestedHash from prior entry
     const targetPath = join(resolveSessionLogDir(), `${result.id}.jsonl`);
     const content = await readFile(targetPath, 'utf8');
     const lines = content.split(/\r?\n/).filter(Boolean);
+
+    const state = await loadState();
+    const prev = state.sessions[targetPath];
 
     await updateSession(targetPath, {
       path: targetPath,
@@ -64,7 +67,8 @@ export const runMirror = async (args: string[]): Promise<void> => {
       size: Buffer.byteLength(content),
       mtime: Date.now(),
       messageCount: lines.length,
-      digestedAt: null,
+      digestedAt: prev?.digestedAt ?? null,
+      digestedHash: prev?.digestedHash ?? null,
     });
 
     console.log(`Mirrored session ${result.id}`);

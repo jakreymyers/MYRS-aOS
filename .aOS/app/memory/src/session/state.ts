@@ -42,7 +42,7 @@ export const updateSession = async (
 // ============================================================================
 
 const LOCK_DIR = () => join(resolveMemoryRoot(), 'data', '.digest.lock');
-const LOCK_MAX_AGE_MS = 60_000; // 1 minute
+const LOCK_MAX_AGE_MS = 120_000; // 2 minutes
 
 export const acquireLock = async (): Promise<boolean> => {
   const lockPath = LOCK_DIR();

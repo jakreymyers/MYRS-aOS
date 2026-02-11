@@ -21,6 +21,7 @@ export interface SessionStateEntry {
   mtime: number;
   messageCount: number;
   digestedAt: string | null; // ISO timestamp of last digest, null if never digested
+  digestedHash?: string | null; // content hash at last successful extraction
 }
 
 export interface SessionStateFile {

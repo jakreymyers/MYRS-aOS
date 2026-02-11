@@ -62,6 +62,37 @@ describe('appendDailyNote', () => {
     expect(headingCount).toBe(1);
   });
 
+  test('replaces existing entry for same session', async () => {
+    await appendDailyNote({
+      dir: testDir,
+      date: '2026-02-07',
+      sessionId: 'abc12345-full-id',
+      time: '14:30',
+      summary: 'First extraction.',
+      factCount: 3,
+      entityPaths: ['projects/alpha'],
+    });
+
+    await appendDailyNote({
+      dir: testDir,
+      date: '2026-02-07',
+      sessionId: 'abc12345-full-id',
+      time: '14:30',
+      summary: 'Updated extraction with more facts.',
+      factCount: 7,
+      entityPaths: ['projects/alpha', 'people/jak'],
+    });
+
+    const content = await readFile(join(testDir, '2026-02-07.md'), 'utf8');
+    // Should have exactly one entry for this session
+    const matches = content.match(/## Session abc12345/g) || [];
+    expect(matches.length).toBe(1);
+    // Should contain the updated content
+    expect(content).toContain('Updated extraction with more facts.');
+    expect(content).not.toContain('First extraction.');
+    expect(content).toContain('_7 facts extracted');
+  });
+
   test('handles zero facts gracefully', async () => {
     await appendDailyNote({
       dir: testDir,
