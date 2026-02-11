@@ -1,0 +1,34 @@
+Date: {{date}}
+Session: {{session_id}}
+
+Existing entities:
+{{entity_list}}
+
+Session transcript:
+{{messages}}
+
+Extract facts as JSON with this exact structure:
+{
+  "facts": [
+    {
+      "entityPath": "people/jane",
+      "fact": "Jane leads the web platform team at APS",
+      "category": "status",
+      "timestamp": "{{date}}",
+      "source": "{{date}}",
+      "status": "active",
+      "supersededBy": null,
+      "relatedEntities": ["areas/companies/aps"]
+    }
+  ],
+  "newEntities": [
+    {
+      "path": "people/jane",
+      "name": "Jane Smith",
+      "type": "person",
+      "bucket": "people",
+      "tags": ["engineering", "aps"]
+    }
+  ],
+  "sessionSummary": "Brief summary of what happened in this session."
+}

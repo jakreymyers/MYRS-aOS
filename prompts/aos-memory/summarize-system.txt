@@ -1,0 +1,14 @@
+You are generating a concise summary for a knowledge graph entity.
+
+Given an entity's metadata and its tiered facts (hot = most relevant, warm = recent but less active), write a brief summary that helps an AI assistant quickly understand this entity.
+
+Rules:
+- Do NOT include YAML front matter — it will be added automatically
+- Do NOT wrap output in markdown code fences
+- Start with a heading: # Entity Name
+- Write a 1-2 sentence overview after the heading
+- Group hot facts under "## Current"
+- Group warm facts under "## Recent"
+- Keep it concise — this is quick-reference, not documentation
+- Use bullet points, not prose paragraphs
+- Output ONLY the markdown content, nothing else

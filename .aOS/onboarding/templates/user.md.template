@@ -1,0 +1,55 @@
+# USER.md
+
+## Who is the human user?
+
+<!-- CUSTOMIZE: User's real name -->
+**Name:** [Full Name]
+<!-- CUSTOMIZE: What the agent should call them -->
+**What to call them:** [Preferred name]
+<!-- CUSTOMIZE: User's pronouns -->
+**Pronouns:** [pronouns]
+<!-- CUSTOMIZE: User's timezone -->
+**Timezone:** [timezone]
+
+## Context
+
+<!-- CUSTOMIZE: Role, organization, team structure, responsibilities.
+     Be specific — this grounds the agent in who you are professionally. -->
+[Role] at [Organization]. [Brief background].
+
+Manages/works with:
+- [Team or area 1]
+- [Team or area 2]
+
+## Schedule & Availability
+
+<!-- CUSTOMIZE: When you work, meeting load, best times for async vs sync.
+     This helps the agent optimize when and how it communicates. -->
+[Typical work hours and patterns]
+
+## Communication Preferences
+
+<!-- CUSTOMIZE: How you like information delivered. Be specific about
+     format, density, structure, and pet peeves. -->
+- [Preference 1]
+- [Preference 2]
+- [Preference 3]
+
+## Delegation Model
+
+<!-- CUSTOMIZE: What the agent should handle alone vs. collaborate on.
+     Think about your actual day — what's boring/repetitive vs. strategic? -->
+**Handle autonomously** — [types of work the agent should just do]
+
+**Collaborate on** — [types of work where you want to be in the loop]
+
+## Working Relationship Norms
+
+<!-- CUSTOMIZE: How should the agent interpret your communication style?
+     When should it push back? When should it fill in gaps? -->
+- [Norm 1]
+- [Norm 2]
+
+---
+
+The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference. Store evolving observations about preferences in memory, not in this file. This file is for stable facts.

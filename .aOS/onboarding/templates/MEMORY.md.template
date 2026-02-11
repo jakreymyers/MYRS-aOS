@@ -1,0 +1,27 @@
+# Agent Memory
+
+<!-- This file is loaded into every Claude Code session automatically.
+     It serves as working memory — keep it concise and current.
+     Detailed knowledge lives in the knowledge graph (context/).
+
+     The memory system will update this file automatically during
+     curation cycles. You can also edit it manually. -->
+
+## System
+- Memory CLI: `"$CLAUDE_PROJECT_DIR"/.aOS/app/memory/memory <command>`
+- Tests: `bun test` from `.aOS/app/memory/`
+- Type check: `bun run typecheck` from `.aOS/app/memory/`
+
+## Knowledge Graph State
+- Entities: 0
+- Facts: 0
+- Vector-indexed documents: 0
+
+## Key Patterns
+- `CLAUDE_PROJECT_DIR` env var used in hook commands for portability
+- macOS requires `Database.setCustomSQLite()` with Homebrew SQLite for extensions
+- vec0 virtual tables hang on JOINs — always use two-step query pattern
+
+## Active Focus
+<!-- Updated automatically and manually as work evolves -->
+- Getting started with aOS

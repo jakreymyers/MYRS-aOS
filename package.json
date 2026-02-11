@@ -1,0 +1,11 @@
+{
+  "name": "agentic-os",
+  "private": true,
+  "workspaces": [
+    ".aOS/app/memory",
+    ".aOS/tools/memory-cli"
+  ],
+  "trustedDependencies": [
+    "node-llama-cpp"
+  ]
+}
