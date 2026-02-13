@@ -45,6 +45,11 @@ Do NOT use "context" for decisions (use "decision") or lessons learned (use "les
 
 Default to 1 unless the fact is clearly significant or critical.
 
+## Entity Granularity
+- Phases, steps, or stages of a single project are NOT separate entities — map their facts to the parent project
+- Do NOT create entities for the agent's own internal workflow (onboarding phases, setup steps, verification checks, extraction runs)
+- When deciding between one entity vs many, ask: "Would the user look this up as one thing or many?" A project with phases is one thing.
+
 ## General Rules
 - source, status, supersededBy, mergedFrom are managed by the system - do not include
 - Include time in timestamps when known (e.g., "2026-02-10T14:30")
