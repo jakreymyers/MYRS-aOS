@@ -5,11 +5,11 @@ Follow these phases in order. Update the status below as you complete each phase
 
 ## Onboarding Status
 
-- [x] Phase 1: System Verification
-- [x] Phase 2: Personalization Interview
-- [x] Phase 3: Google Workspace Connection
-- [x] Phase 4: Context Population
-- [x] Phase 5: Verification & Handoff
+- [ ] Phase 1: System Verification
+- [ ] Phase 2: Personalization Interview
+- [ ] Phase 3: Google Workspace Connection
+- [ ] Phase 4: Context Population
+- [ ] Phase 5: Verification & Handoff
 
 If the user asks about the onboarding process, explain where they are,
 what's next, and what will be expected of them at each phase.
@@ -96,6 +96,7 @@ Walk the user through connecting Google Workspace via the gog CLI.
      - People (Contacts): https://console.cloud.google.com/apis/api/people.googleapis.com
      - Sheets: https://console.cloud.google.com/apis/api/sheets.googleapis.com
    - Configure OAuth consent screen: https://console.cloud.google.com/auth/branding
+   - If app is in "Testing", add test users: https://console.cloud.google.com/auth/audience
    - Create OAuth client:
      - Go to https://console.cloud.google.com/auth/clients
      - Click "Create Client" → Application type: "Desktop app"

@@ -44,15 +44,35 @@ export const runEntityCmd = async (args: string[]): Promise<void> => {
 
 const entityList = async (args: string[]): Promise<void> => {
   let bucket: ParaBucket | undefined;
+  const json = args.includes('--json');
   const bucketIdx = args.indexOf('--bucket');
   if (bucketIdx !== -1 && args[bucketIdx + 1]) {
     bucket = args[bucketIdx + 1] as ParaBucket;
   }
 
-  const entities = await listEntities({ bucket });
+  const entities = (await listEntities({ bucket }))
+    .sort((a, b) => a.path.localeCompare(b.path));
 
   if (entities.length === 0) {
-    console.log('No entities found.');
+    if (json) {
+      console.log('[]');
+    } else {
+      console.log('No entities found.');
+    }
+    return;
+  }
+
+  if (json) {
+    const payload = entities.map((entity) => ({
+      path: entity.path,
+      name: entity.name,
+      type: entity.type,
+      bucket: entity.bucket,
+      tags: entity.tags,
+      factCount: entity.factCount,
+      lastUpdated: entity.updated,
+    }));
+    console.log(JSON.stringify(payload, null, 2));
     return;
   }
 

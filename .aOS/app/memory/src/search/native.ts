@@ -2,16 +2,19 @@ import { readdir, readFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import { resolveContextRoot, resolveMemoryRoot } from '../utils/paths';
 import type { Result, SearchResult } from '../types';
+import type { FactCategory } from '../knowledge/types';
 
 export interface FactRef {
   entityDir: string;
   factId: string;
 }
 
-interface NativeSearchOptions {
+export interface NativeSearchOptions {
   query: string;
   limit: number;
   scope?: 'all' | 'entities' | 'notes' | 'facts';
+  category?: FactCategory;
+  includeSuperseded?: boolean;
   contextRoot?: string;
   memoryRoot?: string;
 }
@@ -29,7 +32,7 @@ interface NativeSearchResult {
  * Returns matched fact refs for access tracking.
  */
 export const searchNative = async (options: NativeSearchOptions): Promise<Result<NativeSearchResult>> => {
-  const { query, limit, scope = 'all', contextRoot, memoryRoot } = options;
+  const { query, limit, scope = 'all', contextRoot, memoryRoot, category, includeSuperseded = false } = options;
   const results: SearchResult[] = [];
   const matchedFacts: FactRef[] = [];
 
@@ -44,7 +47,11 @@ export const searchNative = async (options: NativeSearchOptions): Promise<Result
     }
 
     if (scope === 'all' || scope === 'facts') {
-      await searchFacts(terms, results, matchedFacts, contextRoot);
+      await searchFacts(terms, results, matchedFacts, {
+        contextRoot,
+        category,
+        includeSuperseded,
+      });
     }
 
     if (scope === 'all' || scope === 'notes') {
@@ -54,8 +61,9 @@ export const searchNative = async (options: NativeSearchOptions): Promise<Result
     // Score and sort
     results.sort((a, b) => b.score - a.score);
     return { success: true, data: { results: results.slice(0, limit), matchedFacts } };
-  } catch (error: any) {
-    return { success: false, error: error?.message ?? 'Search failed' };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Search failed';
+    return { success: false, error: message };
   }
 };
 
@@ -158,8 +166,20 @@ const searchEntities = async (terms: string[], results: SearchResult[], contextR
   }
 };
 
-const searchFacts = async (terms: string[], results: SearchResult[], matchedFacts: FactRef[], contextRoot?: string): Promise<void> => {
-  const root = contextRoot ?? resolveContextRoot();
+const importanceMultiplier = (importance: number = 1): number => 0.8 + normalizeImportance(importance) * 0.2;
+
+const normalizeImportance = (importance: unknown): 1 | 2 | 3 =>
+  importance === 2 || importance === 3 ? importance : 1;
+
+const searchFacts = async (
+  terms: string[],
+  results: SearchResult[],
+  matchedFacts: FactRef[],
+  options?: { contextRoot?: string; category?: FactCategory; includeSuperseded?: boolean },
+): Promise<void> => {
+  const root = options?.contextRoot ?? resolveContextRoot();
+  const category = options?.category;
+  const includeSuperseded = options?.includeSuperseded ?? false;
 
   for (const bucket of PARA_BUCKETS) {
     const bucketDir = join(root, bucket);
@@ -174,13 +194,14 @@ const searchFacts = async (terms: string[], results: SearchResult[], matchedFact
 
         for (const fact of facts) {
           if (typeof fact.fact !== 'string') continue;
+          if (!includeSuperseded && fact.status === 'superseded') continue;
+          if (category && fact.category !== category) continue;
           const score = scoreContent(fact.fact, terms);
           if (score > 0) {
-            const status = fact.status === 'superseded' ? ' [superseded]' : '';
             results.push({
-              content: `[${fact.category ?? 'unknown'}] ${fact.fact}${status}`,
+              content: `[${fact.category ?? 'unknown'}] ${fact.fact}`,
               snippet: fact.fact,
-              score: normalizeScore(score, fact.fact.length) * 1.2, // Boost facts — they're atomic and precise
+              score: normalizeScore(score, fact.fact.length) * 1.2 * importanceMultiplier(fact.importance),
               file: entityPath,
             });
             if (fact.id) {

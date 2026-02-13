@@ -11,8 +11,8 @@
           },
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-mirror && \"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-digest",
-            "timeout": 120,
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-mirror --trigger SessionStart && \"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-digest",
+            "timeout": 240,
             "async": true
           }
         ]
@@ -24,8 +24,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-mirror && \"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-digest",
-            "timeout": 120,
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-mirror --trigger SessionEnd && \"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-digest",
+            "timeout": 240,
             "async": true
           }
         ]
@@ -37,8 +37,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-mirror && \"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-digest",
-            "timeout": 120,
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-mirror --trigger PreCompact && \"$CLAUDE_PROJECT_DIR\"/.aOS/app/memory/memory session-digest",
+            "timeout": 240,
             "async": true
           }
         ]

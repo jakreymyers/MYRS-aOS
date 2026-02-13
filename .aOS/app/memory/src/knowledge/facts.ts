@@ -1,9 +1,10 @@
-import { readFile, writeFile, mkdir, rename } from 'node:fs/promises';
+import { readFile, mkdir } from 'node:fs/promises';
 import { join, dirname, relative } from 'node:path';
 import type { AtomicFact, FactCategory } from './types';
-import { isValidBucket } from './types';
+import { isValidBucket, isValidCategory } from './types';
 import { resolveContextRoot } from '../utils/paths';
 import { markEntityDirty } from './state';
+import { atomicWrite } from '../utils/atomic';
 
 const ITEMS_FILE = 'items.json';
 
@@ -28,13 +29,47 @@ const tryMarkDirty = async (entityDir: string): Promise<void> => {
 const resolveItemsPath = (entityDir: string): string =>
   join(entityDir, ITEMS_FILE);
 
+const normalizeImportance = (value: unknown): 1 | 2 | 3 =>
+  value === 2 || value === 3 ? value : 1;
+
+const normalizeFact = (raw: unknown): AtomicFact | null => {
+  if (!raw || typeof raw !== 'object') return null;
+  const row = raw as Partial<AtomicFact>;
+  if (typeof row.id !== 'string' || typeof row.fact !== 'string') return null;
+
+  const mergedFrom = Array.isArray(row.mergedFrom)
+    ? row.mergedFrom.filter((v: unknown) => typeof v === 'string')
+    : undefined;
+
+  return {
+    id: row.id,
+    fact: row.fact,
+    category: isValidCategory(String(row.category ?? '')) ? String(row.category) as FactCategory : 'context',
+    timestamp: typeof row.timestamp === 'string' ? row.timestamp : new Date().toISOString().slice(0, 16),
+    source: typeof row.source === 'string' ? row.source : 'unknown',
+    status: row.status === 'superseded' ? 'superseded' : 'active',
+    supersededBy: typeof row.supersededBy === 'string' ? row.supersededBy : null,
+    relatedEntities: Array.isArray(row.relatedEntities)
+      ? row.relatedEntities.filter((v: unknown) => typeof v === 'string')
+      : [],
+    lastAccessed: typeof row.lastAccessed === 'string' ? row.lastAccessed : new Date().toISOString().slice(0, 16),
+    accessCount: typeof row.accessCount === 'number' && Number.isFinite(row.accessCount) ? row.accessCount : 1,
+    importance: normalizeImportance(row.importance),
+    ...(mergedFrom ? { mergedFrom } : {}),
+  };
+};
+
 /**
  * Load all facts for an entity. Returns empty array if file missing.
  */
 export const loadFacts = async (entityDir: string): Promise<AtomicFact[]> => {
   try {
     const content = await readFile(resolveItemsPath(entityDir), 'utf8');
-    return JSON.parse(content) as AtomicFact[];
+    const parsed = JSON.parse(content);
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .map((item) => normalizeFact(item))
+      .filter((item): item is AtomicFact => Boolean(item));
   } catch {
     return [];
   }
@@ -52,9 +87,7 @@ export const saveFacts = async (
 ): Promise<void> => {
   await mkdir(entityDir, { recursive: true });
   const target = resolveItemsPath(entityDir);
-  const tmp = target + '.tmp';
-  await writeFile(tmp, JSON.stringify(facts, null, 2) + '\n');
-  await rename(tmp, target);
+  await atomicWrite(target, JSON.stringify(facts, null, 2) + '\n');
   if (options?.markDirty !== false) {
     await tryMarkDirty(entityDir);
   }
@@ -86,18 +119,21 @@ const slugFromDir = (entityDir: string): string => {
  */
 export const addFact = async (
   entityDir: string,
-  fact: Omit<AtomicFact, 'id' | 'lastAccessed' | 'accessCount'>
+  fact: Omit<AtomicFact, 'id' | 'lastAccessed' | 'accessCount' | 'importance'> & {
+    importance?: 1 | 2 | 3;
+  },
 ): Promise<AtomicFact> => {
   const facts = await loadFacts(entityDir);
   const slug = slugFromDir(entityDir);
   const id = nextFactId(facts, slug);
-  const today = new Date().toISOString().slice(0, 10);
+  const now = new Date().toISOString().slice(0, 16);
 
   const newFact: AtomicFact = {
     ...fact,
     id,
-    lastAccessed: today,
+    lastAccessed: now,
     accessCount: 1,
+    importance: normalizeImportance(fact.importance),
   };
 
   facts.push(newFact);
@@ -112,7 +148,9 @@ export const addFact = async (
 export const supersedeFact = async (
   entityDir: string,
   oldFactId: string,
-  newFactData: Omit<AtomicFact, 'id' | 'lastAccessed' | 'accessCount'>
+  newFactData: Omit<AtomicFact, 'id' | 'lastAccessed' | 'accessCount' | 'importance'> & {
+    importance?: 1 | 2 | 3;
+  },
 ): Promise<AtomicFact | null> => {
   const facts = await loadFacts(entityDir);
   const oldFact = facts.find((f) => f.id === oldFactId);
@@ -120,7 +158,7 @@ export const supersedeFact = async (
 
   const slug = slugFromDir(entityDir);
   const newId = nextFactId(facts, slug);
-  const today = new Date().toISOString().slice(0, 10);
+  const now = new Date().toISOString().slice(0, 16);
 
   oldFact.status = 'superseded';
   oldFact.supersededBy = newId;
@@ -128,13 +166,32 @@ export const supersedeFact = async (
   const newFact: AtomicFact = {
     ...newFactData,
     id: newId,
-    lastAccessed: today,
+    lastAccessed: now,
     accessCount: 1,
+    importance: normalizeImportance(newFactData.importance),
   };
 
   facts.push(newFact);
   await saveFacts(entityDir, facts);
   return newFact;
+};
+
+/**
+ * Delete facts by their IDs. Returns the number of facts removed.
+ */
+export const deleteFactsByIds = async (
+  entityDir: string,
+  factIds: string[],
+): Promise<number> => {
+  if (factIds.length === 0) return 0;
+  const facts = await loadFacts(entityDir);
+  const idSet = new Set(factIds);
+  const filtered = facts.filter((f) => !idSet.has(f.id));
+  const removed = facts.length - filtered.length;
+  if (removed > 0) {
+    await saveFacts(entityDir, filtered);
+  }
+  return removed;
 };
 
 /**
@@ -151,7 +208,7 @@ export const touchFact = async (entityDir: string, factId: string): Promise<bool
   const fact = facts.find((f) => f.id === factId);
   if (!fact) return false;
 
-  fact.lastAccessed = new Date().toISOString().slice(0, 10);
+  fact.lastAccessed = new Date().toISOString().slice(0, 16);
   fact.accessCount += 1;
   await saveFacts(entityDir, facts, { markDirty: false });
   return true;
@@ -172,7 +229,7 @@ export const batchTouchFacts = async (
     else grouped.set(entityDir, [factId]);
   }
 
-  const today = new Date().toISOString().slice(0, 10);
+  const now = new Date().toISOString().slice(0, 16);
 
   for (const [entityDir, factIds] of grouped) {
     try {
@@ -182,7 +239,7 @@ export const batchTouchFacts = async (
 
       for (const fact of facts) {
         if (idSet.has(fact.id)) {
-          fact.lastAccessed = today;
+          fact.lastAccessed = now;
           fact.accessCount += 1;
           touched = true;
         }

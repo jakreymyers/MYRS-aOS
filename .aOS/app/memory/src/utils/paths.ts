@@ -67,6 +67,15 @@ export const resolveSessionLogDir = (): string => {
   return join(resolveAosRoot(), '.aOS', 'logs', 'sessions');
 };
 
+export const resolvePipelineLogDir = (): string =>
+  join(resolveAosRoot(), '.aOS', 'logs', 'pipeline');
+
+export const resolvePipelineInboxDir = (): string =>
+  join(resolvePipelineLogDir(), 'inbox');
+
+export const resolvePipelineClaimedDir = (): string =>
+  join(resolvePipelineLogDir(), 'claimed');
+
 export const resolveClaudeCodeSessionDir = (): string => {
   const envRoot = process.env.CLAUDE_CODE_LOG_DIR;
   if (envRoot) return resolve(envRoot);

@@ -30,7 +30,7 @@ describeWithModel('vector/search', () => {
     // Create test entities
     const entities = [
       { path: 'people/sandy-weldon', name: 'Sandy Weldon', text: 'Director of Finance at APS. Manages 13 staff in the finance department.' },
-      { path: 'people/alex-chen', name: 'Alex Chen', text: 'Director of Information Systems. Manages engineering, product, and CX teams.' },
+      { path: 'people/jak-myers', name: 'Jak Myers', text: 'Director of Information Systems at APS. Manages engineering, product, and CX teams.' },
       { path: 'areas/departments/marketing', name: 'Marketing Department', text: 'Handles brand strategy, events, and member communications.' },
     ];
 
@@ -79,10 +79,10 @@ ${e.text}
     expect(result.success).toBe(true);
     if (!result.success) return;
     expect(result.data.length).toBeGreaterThan(0);
-    // Sandy Weldon (finance director) should rank above Alex Chen
+    // Sandy Weldon (finance director) should rank above Jak Myers
     const sandyIdx = result.data.findIndex(r => r.file === 'people/sandy-weldon');
-    const alexIdx = result.data.findIndex(r => r.file === 'people/alex-chen');
-    expect(sandyIdx).toBeLessThan(alexIdx);
+    const jakIdx = result.data.findIndex(r => r.file === 'people/jak-myers');
+    expect(sandyIdx).toBeLessThan(jakIdx);
   }, 30_000);
 
   test('returns scores between 0 and 1', async () => {

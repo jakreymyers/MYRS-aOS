@@ -3,6 +3,9 @@ import { searchFusion } from '../search/fusion';
 import { searchVec } from '../vector/search';
 import { disposeEmbedder } from '../vector/embed';
 import { batchTouchFacts } from '../knowledge/facts';
+import type { FactCategory } from '../knowledge/types';
+import { resolveEntityDir } from '../knowledge/entities';
+import { readFile } from 'node:fs/promises';
 
 /**
  * Search memory via fusion (default), keyword, or vector search.
@@ -26,6 +29,8 @@ export const runSearch = async (args: string[]): Promise<void> => {
   let scope: 'all' | 'entities' | 'notes' | 'facts' = 'all';
   let vectorWeight: number | undefined;
   let textWeight: number | undefined;
+  let category: FactCategory | undefined;
+  let expand = false;
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
@@ -36,6 +41,8 @@ export const runSearch = async (args: string[]): Promise<void> => {
     else if (arg === '-n' && args[i + 1]) limit = Number(args[++i]);
     else if (arg === '--min-score' && args[i + 1]) minScore = Number(args[++i]);
     else if (arg === '--scope' && args[i + 1]) scope = args[++i] as typeof scope;
+    else if (arg === '--category' && args[i + 1]) category = args[++i] as FactCategory;
+    else if (arg === '--expand') expand = true;
     else if (arg === '--vector-weight' && args[i + 1]) vectorWeight = Number(args[++i]);
     else if (arg === '--text-weight' && args[i + 1]) textWeight = Number(args[++i]);
     else queryParts.push(arg);
@@ -54,6 +61,8 @@ Scope:
   --scope entities    Search entity summaries only
   --scope facts       Search atomic facts only
   --scope notes       Search daily notes only
+  --category <type>   Filter facts by category (e.g., decision)
+  --expand            Expand entity summaries in output
 
 Options:
   --json                 JSON output
@@ -67,7 +76,7 @@ Options:
 
   // sqlite-vec embedding search
   if (method === 'vec') {
-    const result = await searchVec({ query, limit });
+    const result = await searchVec({ query, limit, scope });
     await disposeEmbedder();
 
     if (!result.success) {
@@ -96,7 +105,7 @@ Options:
 
   // Native keyword search
   if (method === 'keyword') {
-    const result = await searchNative({ query, limit, scope });
+    const result = await searchNative({ query, limit, scope, category });
     if (!result.success) {
       console.error(result.error);
       process.exitCode = 1;
@@ -114,6 +123,14 @@ Options:
         const score = item.score.toFixed(3);
         console.log(`[${score}] ${item.snippet}`);
         if (item.file) console.log(`  ${item.file}`);
+        if (expand && item.file && !item.file.startsWith('daily-notes/')) {
+          try {
+            const summary = await readFile(`${resolveEntityDir(item.file)}/summary.md`, 'utf8');
+            console.log(summary.slice(0, 600).trim());
+          } catch {
+            // Best effort.
+          }
+        }
       }
     }
 
@@ -129,6 +146,7 @@ Options:
     vectorWeight,
     textWeight,
     scope,
+    category,
     minScore,
   });
   await disposeEmbedder();
@@ -150,6 +168,14 @@ Options:
       const score = item.score.toFixed(3);
       console.log(`[${score}] ${item.snippet}`);
       if (item.file) console.log(`  ${item.file}`);
+      if (expand && item.file && !item.file.startsWith('daily-notes/')) {
+        try {
+          const summary = await readFile(`${resolveEntityDir(item.file)}/summary.md`, 'utf8');
+          console.log(summary.slice(0, 600).trim());
+        } catch {
+          // Best effort.
+        }
+      }
     }
   }
 

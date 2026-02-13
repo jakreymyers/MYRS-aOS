@@ -39,8 +39,8 @@ export const BENCHMARK_QUERIES: BenchmarkQuery[] = [
     expectedEntities: ['people/beth-gunzel'],
   },
   {
-    id: 7, category: 'relationship', query: "user's direct reports",
-    expectedEntities: ['people/test-user'],
+    id: 7, category: 'relationship', query: "Jak's direct reports",
+    expectedEntities: ['people/jak-myers'],
   },
 
   // Conceptual queries

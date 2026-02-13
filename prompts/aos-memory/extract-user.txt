@@ -4,20 +4,21 @@ Session: {{session_id}}
 Existing entities:
 {{entity_list}}
 
-Session transcript:
+Previous session summary (context only):
+{{previous_summary}}
+
+{{transcript_label}}:
 {{messages}}
 
-Extract facts as JSON with this exact structure:
+Extract facts as JSON:
 {
   "facts": [
     {
       "entityPath": "people/jane",
       "fact": "Jane leads the web platform team at APS",
       "category": "status",
-      "timestamp": "{{date}}",
-      "source": "{{date}}",
-      "status": "active",
-      "supersededBy": null,
+      "importance": 2,
+      "timestamp": "{{date}}T09:00",
       "relatedEntities": ["areas/companies/aps"]
     }
   ],
@@ -30,5 +31,7 @@ Extract facts as JSON with this exact structure:
       "tags": ["engineering", "aps"]
     }
   ],
-  "sessionSummary": "Brief summary of what happened in this session."
+  "sessionSummary": "Brief summary of what happened.",
+  "decisions": ["Chose X over Y because Z"],
+  "lessons": ["Learned that A requires B"]
 }

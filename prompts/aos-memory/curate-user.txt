@@ -1,36 +1,13 @@
 Current MEMORY.md:
 {{existing_memory}}
 
-Recent daily reports (last 7-14 days):
+Changed entities ({{changed_entity_count}}):
+{{changed_entities}}
+
+New/updated daily reports since last curate ({{daily_report_count}}):
 {{daily_reports}}
 
-Generate the updated MEMORY.md content. Use this exact structure:
+Today: {{today}}
 
----
-title: Working Memory
-updated: {{today}}
----
-
-# Working Memory
-
-## Active Projects
-- [project] — [status/next step]
-
-## Recent Decisions
-- [decision] ([date])
-
-## Open Questions
-- [question]
-
-## Current Focus
-- [what the agent should prioritize]
-
-## Situational Patterns
-- [transient preferences, current working style observations]
-- [things that are true NOW but may not be permanent]
-- [patterns learned about current projects/codebase]
-
-## Time-Bound Notes
-- [temporary items with expiry context]
-
+Generate the updated MEMORY.md content following the structure and rules in your instructions.
 Return ONLY the completed MEMORY.md content.

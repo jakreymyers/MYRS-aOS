@@ -41,6 +41,7 @@ Senior Software Engineer at APS. Leads the web platform team.
       relatedEntities: ['areas/companies/aps'],
       lastAccessed: '2026-02-07',
       accessCount: 5,
+      importance: 2,
     },
     {
       id: 'jane-002',
@@ -53,6 +54,33 @@ Senior Software Engineer at APS. Leads the web platform team.
       relatedEntities: ['projects/react-migration'],
       lastAccessed: '2026-02-05',
       accessCount: 3,
+      importance: 1,
+    },
+    {
+      id: 'jane-003',
+      fact: 'Approved platform budget sequencing for Q2 planning',
+      category: 'decision',
+      timestamp: '2026-02-01',
+      source: '2026-02-01',
+      status: 'active',
+      supersededBy: null,
+      relatedEntities: ['projects/react-migration'],
+      lastAccessed: '2026-02-05',
+      accessCount: 2,
+      importance: 3,
+    },
+    {
+      id: 'jane-004',
+      fact: 'Legacy monolith ownership model from 2023',
+      category: 'status',
+      timestamp: '2023-01-01',
+      source: '2023-01-01',
+      status: 'superseded',
+      supersededBy: 'jane-001',
+      relatedEntities: [],
+      lastAccessed: '2026-01-01',
+      accessCount: 1,
+      importance: 1,
     },
   ]));
 
@@ -65,7 +93,7 @@ Senior Software Engineer at APS. Leads the web platform team.
 
 Reviewed the React migration timeline with Jane. Discussed API gateway concerns.
 
-_3 facts extracted → areas/people/jane, projects/react-migration_
+_3 facts → areas/people/jane, projects/react-migration_
 `);
 });
 
@@ -178,5 +206,35 @@ describe('searchNative', () => {
     for (let i = 1; i < results.length; i++) {
       expect(results[i].score).toBeLessThanOrEqual(results[i - 1].score);
     }
+  });
+
+  test('--category filters fact results', async () => {
+    const result = await searchNative({
+      query: 'platform',
+      limit: 10,
+      scope: 'facts',
+      category: 'decision',
+      contextRoot,
+      memoryRoot,
+    });
+
+    expect(result.success).toBe(true);
+    if (!result.success) return;
+    expect(result.data.results.length).toBeGreaterThan(0);
+    expect(result.data.results.every((row) => row.content.includes('[decision]'))).toBe(true);
+  });
+
+  test('superseded facts are excluded by default', async () => {
+    const result = await searchNative({
+      query: 'Legacy monolith ownership model',
+      limit: 10,
+      scope: 'facts',
+      contextRoot,
+      memoryRoot,
+    });
+
+    expect(result.success).toBe(true);
+    if (!result.success) return;
+    expect(result.data.results).toEqual([]);
   });
 });

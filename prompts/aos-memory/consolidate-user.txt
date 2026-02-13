@@ -1,0 +1,9 @@
+Entity: {{entity_path}}
+
+EXISTING facts ({{existing_count}} active):
+{{existing_facts_block}}
+
+CANDIDATE facts ({{candidate_count}} new):
+{{candidates_block}}
+
+For each candidate (C0, C1, ...), decide: create, merge, supersede, or drop.

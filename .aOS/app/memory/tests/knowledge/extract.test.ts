@@ -93,6 +93,22 @@ describe('parseExtractionResponse', () => {
     expect(result.facts[1].entityPath).toBe('people/jane');
   });
 
+  test('filters out facts with invalid path shape', () => {
+    const input = JSON.stringify({
+      facts: [
+        { entityPath: 'people/jane', fact: 'Valid path' },
+        { entityPath: 'people/jane/doe', fact: 'Too deep path should fail' },
+        { entityPath: 'projects//alpha', fact: 'Empty segment should fail' },
+      ],
+      newEntities: [],
+      sessionSummary: 'Path shape test.',
+    });
+
+    const result = parseExtractionResponse(input);
+    expect(result.facts).toHaveLength(1);
+    expect(result.facts[0].entityPath).toBe('people/jane');
+  });
+
   test('defaults missing optional fields', () => {
     const input = JSON.stringify({
       facts: [{ entityPath: 'projects/alpha', fact: 'Minimal fact' }],
@@ -108,6 +124,23 @@ describe('parseExtractionResponse', () => {
     expect(result.newEntities[0].type).toBe('unknown');
     expect(result.newEntities[0].bucket).toBe('people');
     expect(result.newEntities[0].tags).toEqual([]);
+    expect(result.facts[0].fact.importance).toBe(1);
+  });
+
+  test('preserves valid importance and normalizes invalid importance', () => {
+    const input = JSON.stringify({
+      facts: [
+        { entityPath: 'projects/alpha', fact: 'Critical decision', category: 'decision', importance: 3 },
+        { entityPath: 'projects/alpha', fact: 'Invalid high importance', importance: 99 },
+      ],
+      newEntities: [],
+      sessionSummary: '',
+    });
+
+    const result = parseExtractionResponse(input);
+    expect(result.facts).toHaveLength(2);
+    expect(result.facts[0].fact.importance).toBe(3);
+    expect(result.facts[1].fact.importance).toBe(1);
   });
 
   test('filters out entities with invalid bucket prefix', () => {
@@ -140,5 +173,104 @@ describe('parseExtractionResponse', () => {
 
     const result = parseExtractionResponse(input);
     expect(result.facts[0].fact.relatedEntities).toEqual(['people/bob', 'areas/companies/aps']);
+  });
+
+  test('invalid category normalizes to context', () => {
+    const input = JSON.stringify({
+      facts: [{ entityPath: 'people/jane', fact: 'Test', category: 'bogus' }],
+      newEntities: [],
+      sessionSummary: '',
+    });
+
+    const result = parseExtractionResponse(input);
+    expect(result.facts[0].fact.category).toBe('context');
+  });
+
+  test('invalid status normalizes to active', () => {
+    const input = JSON.stringify({
+      facts: [{ entityPath: 'people/jane', fact: 'Test', status: 'archived' }],
+      newEntities: [],
+      sessionSummary: '',
+    });
+
+    const result = parseExtractionResponse(input);
+    expect(result.facts[0].fact.status).toBe('active');
+  });
+
+  test('supersededBy always forced to null', () => {
+    const input = JSON.stringify({
+      facts: [{ entityPath: 'people/jane', fact: 'Test', supersededBy: 'jane-005' }],
+      newEntities: [],
+      sessionSummary: '',
+    });
+
+    const result = parseExtractionResponse(input);
+    expect(result.facts[0].fact.supersededBy).toBeNull();
+  });
+
+  test('captures decisions and lessons arrays when present', () => {
+    const input = JSON.stringify({
+      facts: [],
+      newEntities: [],
+      sessionSummary: 'Summary.',
+      decisions: ['Chose option A over B'],
+      lessons: ['Validate schema before persisting'],
+    });
+
+    const result = parseExtractionResponse(input);
+    expect(result.decisions).toEqual(['Chose option A over B']);
+    expect(result.lessons).toEqual(['Validate schema before persisting']);
+  });
+});
+
+describe('extractFromMessages prompt context', () => {
+  test('injects previous summary and transcript label placeholders', async () => {
+    let seenPrompt = '';
+    const llm = async (prompt: string) => {
+      seenPrompt = prompt;
+      return JSON.stringify({ facts: [], newEntities: [], sessionSummary: 'ok' });
+    };
+
+    const { extractFromMessages } = await import('../../src/knowledge/extract');
+    await extractFromMessages({
+      messages: [{ role: 'user', content: 'New update text' }],
+      entityList: '',
+      date: '2026-02-13',
+      sessionId: 'session-123',
+      llmCaller: llm,
+      systemPrompt: 'system',
+      userPromptTemplate: 'prev={{previous_summary}} label={{transcript_label}} msgs={{messages}}',
+      previousSummary: 'Prior summary text',
+      transcriptLabel: 'New messages since last extraction',
+    } as unknown as Parameters<typeof extractFromMessages>[0]);
+
+    expect(seenPrompt).toContain('Prior summary text');
+    expect(seenPrompt).toContain('New messages since last extraction');
+    expect(seenPrompt).toContain('USER: New update text');
+  });
+
+  test('caps previous summary to 500 words before prompt render', async () => {
+    let seenPrompt = '';
+    const llm = async (prompt: string) => {
+      seenPrompt = prompt;
+      return JSON.stringify({ facts: [], newEntities: [], sessionSummary: 'ok' });
+    };
+
+    const longSummary = Array.from({ length: 650 }, (_, i) => `word${i}`).join(' ');
+    const { extractFromMessages } = await import('../../src/knowledge/extract');
+    await extractFromMessages({
+      messages: [{ role: 'user', content: 'Delta message' }],
+      entityList: '',
+      date: '2026-02-13',
+      sessionId: 'session-124',
+      llmCaller: llm,
+      systemPrompt: 'system',
+      userPromptTemplate: 'prev={{previous_summary}} msgs={{messages}}',
+      previousSummary: longSummary,
+      transcriptLabel: 'New messages',
+    } as unknown as Parameters<typeof extractFromMessages>[0]);
+
+    const promptWordCount = seenPrompt.split(/\s+/).filter(Boolean).length;
+    expect(promptWordCount).toBeLessThan(560);
   });
 });

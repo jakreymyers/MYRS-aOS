@@ -44,7 +44,7 @@ const normalizeToEntityKey = (file?: string): string => {
 };
 
 /**
- * Check if a result file path matches any of the expected entity paths.
+ * Check whether a result file path matches one of the expected entity paths.
  * Uses prefix matching so "areas/departments/finance" matches results from
  * "areas/departments/finance/summary.md".
  */

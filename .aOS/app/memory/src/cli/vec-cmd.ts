@@ -44,8 +44,9 @@ Subcommands:
           }
         }
         db.close();
-      } catch (error: any) {
-        console.error(`Vector index not available: ${error?.message}`);
+      } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : 'unknown error';
+        console.error(`Vector index not available: ${message}`);
         process.exitCode = 1;
       }
       break;

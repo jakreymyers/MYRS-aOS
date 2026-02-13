@@ -1,17 +1,38 @@
 import type { SessionMessage } from '../types';
-import type { ExtractionResult, ParaBucket } from './types';
-import { isValidBucket } from './types';
-import { listEntities, createEntity, entityExists } from './entities';
-import { addFact } from './facts';
-import { markEntityDirty } from './state';
-import { appendDailyNote } from './daily-notes';
+import type { ExtractionResult, FactCategory, ParaBucket } from './types';
+import { isValidBucket, isValidCategory } from './types';
 import { fillPrompt } from '../llm/prompts';
 
 export type ExtractLlmCaller = (prompt: string) => Promise<string>;
 
+const KEBAB_SEGMENT = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+const isValidEntityPath = (path: string): boolean => {
+  const parts = path.split('/');
+  if (parts.length < 2 || parts.length > 3) return false;
+  if (parts.some((part) => part.length === 0)) return false;
+  if (!isValidBucket(parts[0] ?? '')) return false;
+  if (!parts.slice(1).every((part) => KEBAB_SEGMENT.test(part))) return false;
+  if (parts[0] === 'people' && parts.length !== 2) return false;
+  if (parts[0] === 'areas' && parts[1] === 'people') return false;
+  return true;
+};
+
+const parseImportance = (value: unknown): 1 | 2 | 3 =>
+  value === 2 || value === 3 ? value : 1;
+
+const asRecord = (value: unknown): Record<string, unknown> =>
+  (value && typeof value === 'object') ? value as Record<string, unknown> : {};
+
+const truncateWords = (input: string, maxWords: number): string => {
+  const words = input.trim().split(/\s+/).filter(Boolean);
+  if (words.length <= maxWords) return input.trim();
+  return `${words.slice(0, maxWords).join(' ')} ...`;
+};
+
 /**
  * Parse an extraction response from the LLM.
- * Tries multiple strategies: direct parse → strip fences → regex extract → empty fallback.
+ * Tries multiple strategies: direct parse -> strip fences -> regex extract -> empty fallback.
  */
 export const parseExtractionResponse = (raw: string): ExtractionResult => {
   // Strategy 1: Direct JSON parse
@@ -43,54 +64,68 @@ export const parseExtractionResponse = (raw: string): ExtractionResult => {
   }
 
   // Strategy 4: Empty fallback
-  return { facts: [], newEntities: [], sessionSummary: '' };
+  return { facts: [], newEntities: [], sessionSummary: '', decisions: [], lessons: [] };
 };
 
 /**
  * Validate and normalize the parsed extraction result.
  */
-const validateExtraction = (parsed: any): ExtractionResult => {
-  const facts = Array.isArray(parsed.facts) ? parsed.facts : [];
-  const newEntities = Array.isArray(parsed.newEntities) ? parsed.newEntities : [];
-  const sessionSummary = typeof parsed.sessionSummary === 'string' ? parsed.sessionSummary : '';
+const validateExtraction = (parsed: unknown): ExtractionResult => {
+  const row = asRecord(parsed);
+  const facts = Array.isArray(row.facts) ? row.facts : [];
+  const newEntities = Array.isArray(row.newEntities) ? row.newEntities : [];
+  const sessionSummary = typeof row.sessionSummary === 'string' ? row.sessionSummary : '';
+  const decisions = Array.isArray(row.decisions)
+    ? row.decisions.filter((d: unknown): d is string => typeof d === 'string' && d.trim().length > 0)
+    : [];
+  const lessons = Array.isArray(row.lessons)
+    ? row.lessons.filter((l: unknown): l is string => typeof l === 'string' && l.trim().length > 0)
+    : [];
 
   return {
-    facts: facts.filter((f: any) =>
-      typeof f.entityPath === 'string' &&
-      typeof f.fact === 'string' &&
-      f.fact.trim().length > 0 &&
-      isValidBucket(f.entityPath.split('/')[0] ?? '')
-    ).map((f: any) => ({
-      entityPath: f.entityPath,
-      fact: {
-        fact: f.fact,
-        category: f.category ?? 'context',
-        timestamp: f.timestamp ?? new Date().toISOString().slice(0, 10),
-        source: f.source ?? new Date().toISOString().slice(0, 10),
-        status: f.status ?? 'active',
-        supersededBy: f.supersededBy ?? null,
-        relatedEntities: Array.isArray(f.relatedEntities) ? f.relatedEntities.filter(
-          (r: any) => typeof r === 'string' && isValidBucket(r.split('/')[0] ?? '')
-        ) : [],
-      },
-    })),
-    newEntities: newEntities.filter((e: any) =>
-      typeof e.path === 'string' &&
-      typeof e.name === 'string' &&
-      isValidBucket(e.path.split('/')[0] ?? '')
-    ).map((e: any) => ({
-      path: e.path,
-      name: e.name,
-      type: e.type ?? 'unknown',
-      bucket: (e.bucket ?? e.path.split('/')[0] ?? 'resources') as ParaBucket,
-      tags: Array.isArray(e.tags) ? e.tags : [],
-    })),
+    facts: facts
+      .map((item) => asRecord(item))
+      .filter((f) =>
+        typeof f.entityPath === 'string'
+        && typeof f.fact === 'string'
+        && f.fact.trim().length > 0
+        && isValidEntityPath(f.entityPath)
+      ).map((f) => ({
+        entityPath: String(f.entityPath),
+        fact: {
+          fact: String(f.fact),
+          category: isValidCategory(String(f.category ?? '')) ? String(f.category) as FactCategory : 'context',
+          importance: parseImportance(f.importance),
+          timestamp: typeof f.timestamp === 'string' ? f.timestamp : new Date().toISOString().slice(0, 16),
+          source: typeof f.source === 'string' ? f.source : new Date().toISOString().slice(0, 16),
+          status: (f.status === 'active' || f.status === 'superseded') ? f.status : 'active',
+          supersededBy: null,
+          relatedEntities: Array.isArray(f.relatedEntities)
+            ? f.relatedEntities.filter((r: unknown): r is string => typeof r === 'string' && isValidEntityPath(r))
+            : [],
+        },
+      })),
+    newEntities: newEntities
+      .map((item) => asRecord(item))
+      .filter((e) =>
+        typeof e.path === 'string'
+        && typeof e.name === 'string'
+        && isValidEntityPath(e.path)
+      ).map((e) => ({
+        path: String(e.path),
+        name: String(e.name),
+        type: typeof e.type === 'string' ? e.type : 'unknown',
+        bucket: (typeof e.bucket === 'string' ? e.bucket : String(e.path).split('/')[0] ?? 'resources') as ParaBucket,
+        tags: Array.isArray(e.tags) ? e.tags.filter((tag: unknown): tag is string => typeof tag === 'string') : [],
+      })),
     sessionSummary,
+    decisions,
+    lessons,
   };
 };
 
 /**
- * Core extraction from messages. No I/O — returns structured extraction result.
+ * Core extraction from messages. No I/O - returns structured extraction result.
  */
 export const extractFromMessages = async (options: {
   messages: SessionMessage[];
@@ -100,48 +135,10 @@ export const extractFromMessages = async (options: {
   llmCaller: ExtractLlmCaller;
   systemPrompt: string;
   userPromptTemplate: string;
+  previousSummary?: string | null;
+  transcriptLabel?: string;
 }): Promise<ExtractionResult> => {
-  const { messages, entityList, date, sessionId, llmCaller, systemPrompt, userPromptTemplate } = options;
-
-  const combined = messages
-    .map((m) => `${m.role.toUpperCase()}: ${m.content}`)
-    .join('\n\n');
-
-  const userPrompt = fillPrompt(userPromptTemplate, {
-    date,
-    session_id: sessionId,
-    entity_list: entityList || '(none)',
-    messages: combined,
-  });
-
-  const prompt = `${systemPrompt}\n\n${userPrompt}`;
-  const raw = await llmCaller(prompt);
-  return parseExtractionResponse(raw);
-};
-
-/**
- * Full extraction orchestrator: list entities → call LLM → create entities → store facts → mark dirty → append daily note.
- */
-export const runExtraction = async (options: {
-  messages: SessionMessage[];
-  date: string;
-  sessionId: string;
-  llmCaller: ExtractLlmCaller;
-  systemPrompt: string;
-  userPromptTemplate: string;
-  contextRoot?: string;
-  memoryRoot?: string;
-}): Promise<ExtractionResult> => {
-  const { messages, date, sessionId, llmCaller, systemPrompt, userPromptTemplate, contextRoot, memoryRoot } = options;
-
-  // 1. Build entity list for context
-  const entities = await listEntities({ contextRoot });
-  const entityList = entities
-    .map((e) => `${e.path} (${e.type}, ${e.factCount} facts)`)
-    .join('\n');
-
-  // 2. Extract via LLM
-  const result = await extractFromMessages({
+  const {
     messages,
     entityList,
     date,
@@ -149,57 +146,35 @@ export const runExtraction = async (options: {
     llmCaller,
     systemPrompt,
     userPromptTemplate,
+    previousSummary = null,
+    transcriptLabel = 'Session transcript',
+  } = options;
+
+  const combined = messages
+    .map((m) => `${m.role.toUpperCase()}: ${m.content}`)
+    .join('\n\n');
+
+  const summaryForPrompt = previousSummary && previousSummary.trim().length > 0
+    ? truncateWords(previousSummary, 500)
+    : '(none - first extraction for this session)';
+
+  const userPrompt = fillPrompt(userPromptTemplate, {
+    date,
+    session_id: sessionId,
+    entity_list: entityList || '(none)',
+    previous_summary: summaryForPrompt,
+    transcript_label: transcriptLabel,
+    messages: combined,
   });
 
-  // 3. Create new entities
-  for (const entity of result.newEntities) {
-    const exists = await entityExists(entity.path, contextRoot);
-    if (!exists) {
-      await createEntity({ ...entity, contextRoot });
-    }
-  }
+  const prompt = `${systemPrompt}\n\n${userPrompt}`;
+  const raw = await llmCaller(prompt);
+  const result = parseExtractionResponse(raw);
 
-  // 4. Store facts into entity directories
-  const { resolveEntityDir } = await import('./entities');
-  const affectedEntities = new Set<string>();
-
-  for (const { entityPath, fact } of result.facts) {
-    const bucket = entityPath.split('/')[0] ?? '';
-    if (!isValidBucket(bucket)) continue; // Skip invalid paths
-
-    const exists = await entityExists(entityPath, contextRoot);
-    if (!exists) {
-      const name = entityPath.split('/').pop() ?? 'unknown';
-      await createEntity({ path: entityPath, name, type: 'auto', bucket: bucket as ParaBucket, contextRoot });
-    }
-
-    const dir = resolveEntityDir(entityPath, contextRoot);
-    await addFact(dir, fact);
-    affectedEntities.add(entityPath);
-  }
-
-  // 5. Mark affected entities as dirty
-  for (const path of affectedEntities) {
-    await markEntityDirty(path, memoryRoot);
-  }
-
-  // 6. Append daily note
-  if (result.sessionSummary || result.facts.length > 0) {
-    const time = new Date().toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-    });
-
-    await appendDailyNote({
-      date,
-      sessionId,
-      time,
-      summary: result.sessionSummary || '(No summary extracted)',
-      factCount: result.facts.length,
-      entityPaths: [...affectedEntities],
-      ...(memoryRoot ? { dir: undefined } : {}),
-    });
+  // Post-parse normalization: source -> session UUID
+  for (const entry of result.facts) {
+    entry.fact.source = sessionId;
+    entry.fact.supersededBy = null;
   }
 
   return result;

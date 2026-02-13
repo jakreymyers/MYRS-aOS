@@ -1,15 +1,16 @@
 import { searchNative, type FactRef } from './native';
 import { searchVec } from '../vector/search';
-import { disposeEmbedder } from '../vector/embed';
 import type { Result, SearchResult } from '../types';
+import type { FactCategory } from '../knowledge/types';
 
-interface FusionOptions {
+export interface FusionOptions {
   query: string;
   limit: number;
   vectorWeight?: number;   // default 0.7
   textWeight?: number;     // default 0.3
   candidateMultiplier?: number; // default 4
   scope?: 'all' | 'entities' | 'notes' | 'facts';
+  category?: FactCategory;
   minScore?: number;
 }
 
@@ -53,7 +54,15 @@ interface FusionSearchResult {
   matchedFacts: FactRef[];
 }
 
-export const searchFusion = async (options: FusionOptions): Promise<Result<FusionSearchResult>> => {
+interface FusionDeps {
+  searchNativeFn?: typeof searchNative;
+  searchVecFn?: typeof searchVec;
+}
+
+export const searchFusion = async (
+  options: FusionOptions,
+  deps?: FusionDeps,
+): Promise<Result<FusionSearchResult>> => {
   const {
     query,
     limit,
@@ -61,6 +70,7 @@ export const searchFusion = async (options: FusionOptions): Promise<Result<Fusio
     textWeight: rawTextWeight,
     candidateMultiplier = 4,
     scope = 'all',
+    category,
     minScore,
   } = options;
 
@@ -68,15 +78,17 @@ export const searchFusion = async (options: FusionOptions): Promise<Result<Fusio
   const rawVW = rawVectorWeight ?? 0.7;
   const rawTW = rawTextWeight ?? 0.3;
   const total = rawVW + rawTW;
-  const vectorWeight = rawVW / total;
-  const textWeight = rawTW / total;
+  const vectorWeight = total > 0 ? rawVW / total : 0.7;
+  const textWeight = total > 0 ? rawTW / total : 0.3;
 
   const candidateLimit = limit * candidateMultiplier;
+  const keywordSearch = deps?.searchNativeFn ?? searchNative;
+  const vectorSearch = deps?.searchVecFn ?? searchVec;
 
   // Run keyword and sqlite-vec in parallel
   const [keywordResult, vectorResult] = await Promise.all([
-    searchNative({ query, limit: candidateLimit, scope }),
-    searchVec({ query, limit: candidateLimit }),
+    keywordSearch({ query, limit: candidateLimit, scope, category }),
+    vectorSearch({ query, limit: candidateLimit, scope }),
   ]);
 
   // Collect matched fact refs from keyword search for access tracking
@@ -148,11 +160,21 @@ export const searchFusion = async (options: FusionOptions): Promise<Result<Fusio
 
   // Compute fusion scores
   for (const candidate of candidates.values()) {
-    candidate.fusionScore = vectorWeight * candidate.vectorScore + textWeight * candidate.textScore;
+    const hasKeyword = candidate.sources.includes('keyword');
+    const hasVector = candidate.sources.includes('vector');
+
+    if (hasKeyword && hasVector) {
+      candidate.fusionScore = vectorWeight * candidate.vectorScore + textWeight * candidate.textScore;
+    } else if (hasKeyword) {
+      candidate.fusionScore = candidate.textScore;
+    } else {
+      candidate.fusionScore = candidate.vectorScore;
+    }
   }
 
   // Sort by fusion score descending, take top N
   const sorted = [...candidates.values()]
+    .filter((candidate) => minScore == null || candidate.fusionScore >= minScore)
     .sort((a, b) => b.fusionScore - a.fusionScore)
     .slice(0, limit);
 

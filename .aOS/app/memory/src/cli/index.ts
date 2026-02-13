@@ -4,18 +4,23 @@ import { runCheck } from './check';
 import { runCurate } from './curate';
 import { runSearch } from './search';
 import { runStats } from './stats';
-import { runExtractCmd } from './extract-cmd';
 import { runEntityCmd } from './entity-cmd';
 import { runDecayCmd } from './decay-cmd';
 import { runVecCmd } from './vec-cmd';
 import { runBenchmarkCmd } from '../benchmark/run';
+import { runConsolidate } from './consolidate';
+import { runRecall } from './recall';
+import { runDoctor } from './doctor';
+import { runAlerts } from './alerts';
+import { runRebuild } from './rebuild';
 
 const printHelp = () => {
   console.log(`memory <command> [options]
 
 Session Commands:
   session-mirror              Mirror current session log (fast, sync)
-  session-digest [--force]    Extract facts from session logs
+  session-digest [--force] [--no-consolidate] [--no-curate]
+                              Extract facts from session logs
   session-check               Check state at session start
 
 Knowledge Graph Commands:
@@ -24,8 +29,7 @@ Knowledge Graph Commands:
   entity create <path>        Create new entity
   entity archive <path>       Move entity to archives
   entity graph <path>         Show related entities
-  extract [session-id]        Extract facts from session(s)
-  extract --backfill          Extract from all sessions
+  consolidate --entity <p>    Consolidate candidate facts for one entity
 
 Memory Maintenance:
   curate [--summaries-only]   Refresh summaries + MEMORY.md
@@ -35,6 +39,7 @@ Memory Maintenance:
 
 Search:
   search <query>              Fusion search (keyword + vector, default)
+  recall <query>              Fusion recall + entity expansion (primary)
   search <query> --keyword    Native keyword only (~27ms)
   search <query> --vec        Vector embedding only (~67ms)
   search <query> --scope X    Restrict: entities, facts, or notes
@@ -50,6 +55,9 @@ Benchmark:
 
 Diagnostics:
   stats [--json]              Full system statistics
+  doctor [--json]             Validate memory system integrity
+  alerts [--json]             Show upcoming/stale/critical alerts
+  rebuild <subcommand>        Rebuild helpers (manifest-diff, validate-staging, provenance, orchestrate)
   help                        Show this help
 `);
 };
@@ -79,11 +87,20 @@ export const runCli = async (argv: string[]): Promise<void> => {
     case 'search':
       await runSearch(args.slice(1));
       break;
+    case 'recall':
+      await runRecall(args.slice(1));
+      break;
     case 'stats':
       await runStats(args.slice(1));
       break;
-    case 'extract':
-      await runExtractCmd(args.slice(1));
+    case 'doctor':
+      await runDoctor(args.slice(1));
+      break;
+    case 'alerts':
+      await runAlerts(args.slice(1));
+      break;
+    case 'rebuild':
+      await runRebuild(args.slice(1));
       break;
     case 'entity':
       await runEntityCmd(args.slice(1));
@@ -96,6 +113,9 @@ export const runCli = async (argv: string[]): Promise<void> => {
       break;
     case 'benchmark':
       await runBenchmarkCmd(args.slice(1));
+      break;
+    case 'consolidate':
+      await runConsolidate(args.slice(1));
       break;
     default:
       console.error(`Unknown command: ${command}`);

@@ -90,15 +90,15 @@ memory benchmark                            # Run search quality benchmark
 
 Session logs are extracted into atomic facts and appended to daily notes at:
 
-- `memory/daily-notes/YYYY-MM-DD.md`
+- `/Users/jak/agentic-os/memory/daily-notes/YYYY-MM-DD.md`
 
 ## Configuration
 
 Environment variables:
 
-- `CLAUDE_CODE_LOG_DIR`: source Claude Code session logs
-- `SESSION_LOG_DIR`: canonical session log store (default: `.aOS/logs/sessions`)
-- `MEMORY_ROOT`: override memory root (default: `memory/`)
-- `CONTEXT_ROOT`: override context root (default: `context/`)
+- `CLAUDE_CODE_LOG_DIR`: source Claude Code session logs (default: `~/.claude/projects/-Users-jak-agentic-os`)
+- `SESSION_LOG_DIR`: canonical session log store (default: `/Users/jak/agentic-os/.aOS/logs/sessions`)
+- `MEMORY_ROOT`: override memory root (default: `/Users/jak/agentic-os/memory`)
+- `CONTEXT_ROOT`: override context root (default: `/Users/jak/agentic-os/context`)
 - `CLAUDE_MODEL`: Claude model for extraction/curation
 - `ANTHROPIC_API_KEY`: API key for Claude SDK

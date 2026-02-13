@@ -44,5 +44,10 @@ node_modules/
 # Managed dependencies (cloned repos)
 .aOS/deps/*/repo/
 
-# Logs (daily logs are intentionally tracked)
-# memory/logs/ - tracked
+# Logs (daily notes are intentionally tracked)
+# memory/daily-notes/ - tracked
+.aOS/logs/sessions/*.jsonl
+.aOS/logs/pipeline/events.jsonl
+.aOS/logs/pipeline/hook-runs.jsonl
+.aOS/logs/pipeline/inbox/
+.aOS/logs/pipeline/claimed/

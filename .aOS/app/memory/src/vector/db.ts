@@ -8,7 +8,7 @@ import { resolveVecDbPath } from '../utils/paths';
 const EMBEDDING_DIMS = 768;
 
 // macOS ships a stripped SQLite that doesn't support extensions.
-// Must point to Homebrew's before creating any Database instance.
+// Must point to Homebrew's before creating a Database instance.
 let customSqliteSet = false;
 const ensureCustomSQLite = (): void => {
   if (customSqliteSet) return;
@@ -50,6 +50,7 @@ export const openVecDb = (dbPath?: string): Database => {
   const db = new Database(path);
   sqliteVec.load(db);
   db.run('PRAGMA journal_mode=WAL');
+  db.run('PRAGMA busy_timeout=5000');
   initSchema(db);
   return db;
 };
@@ -70,7 +71,7 @@ export const upsertDocument = (
   embedding: Float32Array,
 ): void => {
   const tx = db.transaction(() => {
-    // Delete existing (if any) from both tables
+    // Delete existing rows from both tables
     db.run('DELETE FROM vec_embeddings WHERE id = ?', [doc.id]);
     db.run('DELETE FROM vec_documents WHERE id = ?', [doc.id]);
     // Insert new

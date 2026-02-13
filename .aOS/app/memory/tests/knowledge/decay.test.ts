@@ -2,7 +2,9 @@ import { describe, expect, test } from 'bun:test';
 import { computeTier, tierFacts, HOT_DAYS, WARM_DAYS, FREQUENCY_BONUS_THRESHOLD, FREQUENCY_BONUS_DAYS } from '../../src/knowledge/decay';
 import type { AtomicFact } from '../../src/knowledge/types';
 
-const makeFact = (overrides: Partial<AtomicFact> = {}): AtomicFact => ({
+const makeFact = (overrides: Partial<AtomicFact> = {}): AtomicFact => {
+  const { importance, ...rest } = overrides;
+  return {
   id: 'test-001',
   fact: 'Test fact',
   category: 'status',
@@ -13,8 +15,10 @@ const makeFact = (overrides: Partial<AtomicFact> = {}): AtomicFact => ({
   relatedEntities: [],
   lastAccessed: '2026-02-01',
   accessCount: 1,
-  ...overrides,
-});
+  importance: importance ?? 1,
+  ...rest,
+  };
+};
 
 describe('computeTier', () => {
   test('recent access is hot', () => {
@@ -75,6 +79,24 @@ describe('computeTier', () => {
       accessCount: FREQUENCY_BONUS_THRESHOLD,
     });
     // With bonus: effective hot window = 7 + 14 = 21 days, 28 > 21 → warm
+    expect(computeTier(fact, '2026-02-07')).toBe('warm');
+  });
+
+  test('importance + frequency bonuses are additive and can keep fact hot up to 35 days', () => {
+    const fact = makeFact({
+      lastAccessed: '2026-01-05', // 33 days ago
+      accessCount: FREQUENCY_BONUS_THRESHOLD + 1,
+      importance: 3,
+    });
+    expect(computeTier(fact, '2026-02-07')).toBe('hot');
+  });
+
+  test('importance + frequency bonuses extend warm tier to 58 days max', () => {
+    const fact = makeFact({
+      lastAccessed: '2025-12-20', // 49 days ago
+      accessCount: FREQUENCY_BONUS_THRESHOLD + 1,
+      importance: 3,
+    });
     expect(computeTier(fact, '2026-02-07')).toBe('warm');
   });
 });

@@ -87,5 +87,5 @@ Credentials stored in OS keyring (macOS Keychain). Tokens auto-refresh.
 - Always use `--json` for structured output parsing.
 - Use `--no-input` to prevent interactive prompts during automated runs.
 - Use `--enable-commands` to sandbox to only needed services.
-- Sending emails or modifying calendar events are **external side effects** — require user approval per guardrails.
+- Sending emails or modifying calendar events are **external side effects** — require Jak's approval per guardrails.
 - Read-only operations (search, list, get) can proceed autonomously.

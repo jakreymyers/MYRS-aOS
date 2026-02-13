@@ -21,7 +21,7 @@ describe('loadGraphState', () => {
     expect(state.lastSummaryRefresh).toBeNull();
     expect(state.lastExtraction).toBeNull();
     expect(state.dirtyEntities).toEqual([]);
-    expect(state.entityStats.total).toBe(0);
+    expect(state.consolidationFailures).toBe(0);
   });
 });
 
@@ -31,7 +31,7 @@ describe('saveGraphState / loadGraphState', () => {
       lastSummaryRefresh: '2026-02-07T10:00:00Z',
       lastExtraction: '2026-02-07T09:00:00Z',
       dirtyEntities: ['areas/people/jane'],
-      entityStats: { total: 5, projects: 1, areas: 3, resources: 1, archives: 0, people: 0 },
+      consolidationFailures: 0,
     };
 
     await saveGraphState(state, testDir);

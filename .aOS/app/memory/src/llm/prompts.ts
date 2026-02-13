@@ -7,8 +7,8 @@ const PROMPT_DIR = join(resolveAosRoot(), 'prompts', 'aos-memory');
 const readPrompt = (filename: string): string => {
   try {
     return readFileSync(join(PROMPT_DIR, filename), 'utf8');
-  } catch (error: any) {
-    const message = error?.message ?? 'unknown error';
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'unknown error';
     throw new Error(`Missing prompt file: ${filename} (${message})`);
   }
 };
@@ -17,6 +17,8 @@ export const CURATE_SYSTEM_PROMPT = readPrompt('curate-system.txt');
 export const CURATE_USER_PROMPT = readPrompt('curate-user.txt');
 export const EXTRACT_SYSTEM_PROMPT = readPrompt('extract-system.txt');
 export const EXTRACT_USER_PROMPT = readPrompt('extract-user.txt');
+export const CONSOLIDATE_SYSTEM_PROMPT = readPrompt('consolidate-system.txt');
+export const CONSOLIDATE_USER_PROMPT = readPrompt('consolidate-user.txt');
 export const SUMMARIZE_SYSTEM_PROMPT = readPrompt('summarize-system.txt');
 
 export const fillPrompt = (template: string, values: Record<string, string>): string => {

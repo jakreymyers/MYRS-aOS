@@ -1,9 +1,10 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import type { EntityMeta, TieredFact } from './types';
 import { loadFacts } from './facts';
 import { tierFacts } from './decay';
 import { getEntity, resolveEntityDir } from './entities';
+import { atomicWrite } from '../utils/atomic';
 
 export type LlmCaller = (prompt: string) => Promise<string>;
 
@@ -58,7 +59,7 @@ export const refreshEntitySummary = async (options: {
   const tiered = tierFacts(facts, today);
 
   const content = await generateSummary({ meta, tieredFacts: tiered, llmCaller, systemPrompt });
-  await writeFile(join(dir, 'summary.md'), content);
+  await atomicWrite(join(dir, 'summary.md'), content);
   return true;
 };
 

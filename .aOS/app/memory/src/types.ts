@@ -15,16 +15,15 @@ export type {
 // ============================================================================
 
 export interface SessionStateEntry {
-  path: string;
   contentHash: string;
-  size: number;
-  mtime: number;
-  messageCount: number;
   digestedAt: string | null; // ISO timestamp of last digest, null if never digested
-  digestedHash?: string | null; // content hash at last successful extraction
+  digestedHash: string | null; // content hash at last successful extraction
+  digestedMessageCount: number | null; // number of parsed user/assistant messages already digested
+  sessionSummary: string | null; // cumulative summary used as delta context preamble
 }
 
 export interface SessionStateFile {
+  schemaVersion: 3;
   sessions: Record<string, SessionStateEntry>; // keyed by file path
   lastDigest: string | null; // ISO timestamp
   lastCurate: string | null; // ISO timestamp

@@ -1,8 +1,8 @@
 import { describe, expect, test, beforeEach, afterEach } from 'bun:test';
-import { mkdtemp, rm, mkdir } from 'node:fs/promises';
+import { mkdtemp, rm, mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { loadFacts, saveFacts, addFact, supersedeFact, getActiveFacts, touchFact, getFactsByCategory } from '../../src/knowledge/facts';
+import { loadFacts, saveFacts, addFact, supersedeFact, getActiveFacts, touchFact, getFactsByCategory, deleteFactsByIds } from '../../src/knowledge/facts';
 import { loadGraphState } from '../../src/knowledge/state';
 import type { AtomicFact } from '../../src/knowledge/types';
 
@@ -34,11 +34,35 @@ describe('loadFacts / saveFacts', () => {
       relatedEntities: [],
       lastAccessed: '2026-02-07',
       accessCount: 3,
+      importance: 2,
     }];
 
     await saveFacts(testDir, facts);
     const loaded = await loadFacts(testDir);
     expect(loaded).toEqual(facts);
+  });
+
+  test('backward-compat defaults importance to 1 when missing', async () => {
+    await mkdir(testDir, { recursive: true });
+    await writeFile(join(testDir, 'items.json'), JSON.stringify([
+      {
+        id: 'legacy-001',
+        fact: 'Legacy fact with no importance',
+        category: 'status',
+        timestamp: '2026-01-01',
+        source: 'legacy',
+        status: 'active',
+        supersededBy: null,
+        relatedEntities: [],
+        lastAccessed: '2026-01-01',
+        accessCount: 1,
+      },
+    ]) + '\n');
+
+    const loaded = await loadFacts(testDir);
+    expect(loaded).toHaveLength(1);
+    expect(loaded[0].importance).toBe(1);
+    expect(loaded[0].mergedFrom).toBeUndefined();
   });
 });
 
@@ -258,6 +282,7 @@ describe('saveFacts dirty-marking', () => {
         relatedEntities: [],
         lastAccessed: '2026-02-09',
         accessCount: 1,
+        importance: 1,
       }];
 
       await saveFacts(entityDir, facts);
@@ -273,7 +298,7 @@ describe('saveFacts dirty-marking', () => {
     }
   });
 
-  test('skips dirty-marking when markDirty: false', async () => {
+  test('skips dirty-marking when markDirty: false (saveFacts)', async () => {
     const tmpRoot = await mkdtemp(join(tmpdir(), 'dirty-test-'));
     const contextRoot = join(tmpRoot, 'context');
     const memoryRoot = join(tmpRoot, 'memory');
@@ -298,6 +323,7 @@ describe('saveFacts dirty-marking', () => {
         relatedEntities: [],
         lastAccessed: '2026-02-09',
         accessCount: 1,
+        importance: 1,
       }];
 
       await saveFacts(entityDir, facts, { markDirty: false });
@@ -311,5 +337,82 @@ describe('saveFacts dirty-marking', () => {
       else delete process.env.MEMORY_ROOT;
       await rm(tmpRoot, { recursive: true, force: true });
     }
+  });
+});
+
+describe('deleteFactsByIds', () => {
+  test('removes specified facts and keeps others', async () => {
+    const a = await addFact(testDir, {
+      fact: 'Fact A',
+      category: 'status',
+      timestamp: '2026-02-10',
+      source: 'test-session',
+      status: 'active',
+      supersededBy: null,
+      relatedEntities: [],
+    });
+
+    const b = await addFact(testDir, {
+      fact: 'Fact B',
+      category: 'milestone',
+      timestamp: '2026-02-10',
+      source: 'test-session',
+      status: 'active',
+      supersededBy: null,
+      relatedEntities: [],
+    });
+
+    const c = await addFact(testDir, {
+      fact: 'Fact C',
+      category: 'context',
+      timestamp: '2026-02-10',
+      source: 'test-session',
+      status: 'active',
+      supersededBy: null,
+      relatedEntities: [],
+    });
+
+    const removed = await deleteFactsByIds(testDir, [a.id, c.id]);
+    expect(removed).toBe(2);
+
+    const remaining = await loadFacts(testDir);
+    expect(remaining).toHaveLength(1);
+    expect(remaining[0].id).toBe(b.id);
+  });
+
+  test('returns 0 for non-existent IDs', async () => {
+    await addFact(testDir, {
+      fact: 'Existing',
+      category: 'status',
+      timestamp: '2026-02-10',
+      source: 'test-session',
+      status: 'active',
+      supersededBy: null,
+      relatedEntities: [],
+    });
+
+    const removed = await deleteFactsByIds(testDir, ['nonexistent-999', 'also-fake-001']);
+    expect(removed).toBe(0);
+
+    const remaining = await loadFacts(testDir);
+    expect(remaining).toHaveLength(1);
+  });
+
+  test('handles empty ID list (no-op)', async () => {
+    await addFact(testDir, {
+      fact: 'Should remain',
+      category: 'status',
+      timestamp: '2026-02-10',
+      source: 'test-session',
+      status: 'active',
+      supersededBy: null,
+      relatedEntities: [],
+    });
+
+    const removed = await deleteFactsByIds(testDir, []);
+    expect(removed).toBe(0);
+
+    const remaining = await loadFacts(testDir);
+    expect(remaining).toHaveLength(1);
   });
 });

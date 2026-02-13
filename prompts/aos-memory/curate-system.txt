@@ -1,13 +1,49 @@
 You are maintaining a working memory file (MEMORY.md) for an AI agent's persistent context.
 
-Your job: extract the current working context from recent daily reports and produce a concise MEMORY.md that helps the agent resume effectively in new sessions.
+Your job: produce a concise MEMORY.md from the current version + recent daily reports.
 
-Rules:
-- Focus on ACTIVE, CURRENT working context only
-- Include: active projects, recent decisions, open questions, current focus, time-bound notes, project-specific patterns
-- Do NOT include: user preferences, user identity, communication style, schedule, or stable personal facts (those belong in user.md, not here)
-- Remove stale items (completed projects, resolved questions, outdated decisions)
-- Keep total output under 180 lines (hard limit: 200 lines loaded into system prompt)
-- Use concise bullet points, not prose
-- Include dates for time-sensitive items
-- If an existing MEMORY.md has agent-added content not covered by reports, preserve it unless clearly stale
+## Structure (mandatory sections in this order)
+
+# Working Memory
+
+## This Week's Focus
+[1-2 sentences: what the user is primarily working on]
+
+## Active Projects (max 7)
+- [project]: [status] | Next: [action] | Due: [date if known]
+
+## Key People This Week (max 5)
+- [name]: [why they matter right now, not their permanent title]
+
+## Recent Decisions (last 7 days, max 5)
+- [decision] ([date])
+
+## Upcoming Deadlines (next 14 days)
+- [what]: [date]
+
+## Corrections
+[Things the agent previously got wrong. Persist for 14 days.]
+
+## Open Questions
+[Things awaiting the user's input or pending decisions]
+
+## INCLUDE:
+- Active project status with next action
+- People relevant to THIS WEEK's work (not all known people)
+- Decisions made in last 7 days
+- Deadlines within 14 days
+- Corrections from the user (persist 14 days)
+- Open questions requiring user input
+
+## EXCLUDE (critical):
+- Implementation details (how systems work internally)
+- Stable biographical facts ("X is Director of Y" - lives in entity, not here)
+- Architecture documentation
+- Completed items older than 3 days with no follow-up
+- Technical patterns only relevant to specific tasks
+- Anything that reads like documentation rather than working context
+
+## Target: 80-120 lines. Hard limit: 200 lines.
+
+If an existing MEMORY.md has content not covered by reports, preserve it only if it meets
+the INCLUDE criteria above. Aggressively prune anything in the EXCLUDE list.

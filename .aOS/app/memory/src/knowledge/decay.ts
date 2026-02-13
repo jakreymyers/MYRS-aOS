@@ -5,11 +5,16 @@ export const HOT_DAYS = 7;
 export const WARM_DAYS = 30;
 export const FREQUENCY_BONUS_THRESHOLD = 10;
 export const FREQUENCY_BONUS_DAYS = 14;
+export const IMPORTANCE_BONUS_DAYS = 14;
+export const MAX_BONUS_DAYS = 28;
+
+const toDate = (s: string): Date =>
+  s.includes('T') ? new Date(s) : new Date(s + 'T00:00:00Z');
 
 const daysBetween = (a: string, b: string): number => {
   const msPerDay = 86_400_000;
-  const dateA = new Date(a + 'T00:00:00Z');
-  const dateB = new Date(b + 'T00:00:00Z');
+  const dateA = toDate(a);
+  const dateB = toDate(b);
   return Math.floor(Math.abs(dateB.getTime() - dateA.getTime()) / msPerDay);
 };
 
@@ -22,7 +27,9 @@ export const computeTier = (fact: AtomicFact, today: string): DecayTier => {
   if (fact.status === 'superseded') return 'cold';
 
   const daysSinceAccess = daysBetween(fact.lastAccessed, today);
-  const bonus = fact.accessCount >= FREQUENCY_BONUS_THRESHOLD ? FREQUENCY_BONUS_DAYS : 0;
+  const frequencyBonus = fact.accessCount >= FREQUENCY_BONUS_THRESHOLD ? FREQUENCY_BONUS_DAYS : 0;
+  const importanceBonus = fact.importance === 3 ? IMPORTANCE_BONUS_DAYS : 0;
+  const bonus = Math.min(MAX_BONUS_DAYS, frequencyBonus + importanceBonus);
 
   if (daysSinceAccess <= HOT_DAYS + bonus) return 'hot';
   if (daysSinceAccess <= WARM_DAYS + bonus) return 'warm';

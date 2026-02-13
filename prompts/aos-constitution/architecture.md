@@ -40,7 +40,7 @@ context/
 │   └── teams/         # Team context
 ├── resources/         # Topics of interest / reference
 │   └── [topic]/       # summary.md + items.json
-└─── archives/         # Inactive items from other buckets
+└── archives/          # Inactive items from other buckets
 ```
 
 Each entity directory contains `summary.md` (hot+warm facts) and `items.json` (full atomic fact history).

@@ -7,19 +7,23 @@ export type FactCategory =
   | 'milestone'      // Events, achievements, completions
   | 'status'         // Current state or role
   | 'preference'     // How someone/something operates
-  | 'context';       // Background information
+  | 'context'        // Background information
+  | 'decision'       // Choice with rationale
+  | 'lesson';        // Learned from experience
 
 export interface AtomicFact {
   id: string;                    // Entity-scoped (e.g., "jane-003")
   fact: string;                  // 1-2 sentences, self-contained
   category: FactCategory;
-  timestamp: string;             // YYYY-MM-DD when fact became true
-  source: string;                // Daily note date where learned
+  timestamp: string;             // When fact became true (YYYY-MM-DD or YYYY-MM-DDTHH:MM)
+  source: string;                // Session UUID that produced this fact
   status: 'active' | 'superseded';
   supersededBy: string | null;   // ID of replacement (chain forward)
   relatedEntities: string[];     // PARA paths ("areas/people/jane")
-  lastAccessed: string;          // YYYY-MM-DD
+  lastAccessed: string;          // ISO datetime (YYYY-MM-DDTHH:MM)
   accessCount: number;
+  importance: 1 | 2 | 3;         // 1=routine, 2=significant, 3=critical
+  mergedFrom?: string[];         // IDs of source facts when merged
 }
 
 // ============================================================================
@@ -31,6 +35,13 @@ export type ParaBucket = 'projects' | 'areas' | 'resources' | 'archives' | 'peop
 export const VALID_BUCKETS: readonly ParaBucket[] = ['projects', 'areas', 'resources', 'archives', 'people'] as const;
 
 export const isValidBucket = (s: string): s is ParaBucket => VALID_BUCKETS.includes(s as ParaBucket);
+
+export const VALID_CATEGORIES: readonly FactCategory[] = [
+  'relationship', 'milestone', 'status', 'preference', 'context', 'decision', 'lesson',
+] as const;
+
+export const isValidCategory = (s: string): s is FactCategory =>
+  VALID_CATEGORIES.includes(s as FactCategory);
 
 export interface EntityMeta {
   path: string;                  // Relative to context root (e.g., "areas/people/jane")
@@ -60,14 +71,7 @@ export interface GraphState {
   lastSummaryRefresh: string | null;  // ISO timestamp
   lastExtraction: string | null;      // ISO timestamp
   dirtyEntities: string[];            // PARA paths needing summary refresh
-  entityStats: {
-    total: number;
-    projects: number;
-    areas: number;
-    resources: number;
-    archives: number;
-    people: number;
-  };
+  consolidationFailures: number;
 }
 
 // ============================================================================
@@ -87,4 +91,6 @@ export interface ExtractionResult {
     tags: string[];
   }>;
   sessionSummary: string;
+  decisions: string[];
+  lessons: string[];
 }

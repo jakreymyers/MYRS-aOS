@@ -1,7 +1,8 @@
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
-import { join, dirname } from 'node:path';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { resolveMemoryRoot } from '../utils/paths';
 import type { GraphState } from './types';
+import { mutateState } from '../utils/state';
 
 const GRAPH_STATE_FILE = 'graph-state.json';
 
@@ -12,50 +13,67 @@ const EMPTY_STATE: GraphState = {
   lastSummaryRefresh: null,
   lastExtraction: null,
   dirtyEntities: [],
-  entityStats: { total: 0, projects: 0, areas: 0, resources: 0, archives: 0, people: 0 },
+  consolidationFailures: 0,
 };
+
+const normalizeState = (state: Partial<GraphState> | null | undefined): GraphState => ({
+  lastSummaryRefresh: state?.lastSummaryRefresh ?? null,
+  lastExtraction: state?.lastExtraction ?? null,
+  dirtyEntities: state?.dirtyEntities ?? [],
+  consolidationFailures: state?.consolidationFailures ?? 0,
+});
 
 export const loadGraphState = async (memoryRoot?: string): Promise<GraphState> => {
   try {
     const content = await readFile(resolveGraphStatePath(memoryRoot), 'utf8');
-    return JSON.parse(content) as GraphState;
+    return normalizeState(JSON.parse(content) as Partial<GraphState>);
   } catch {
-    return { ...EMPTY_STATE, dirtyEntities: [], entityStats: { ...EMPTY_STATE.entityStats } };
+    return { ...EMPTY_STATE, dirtyEntities: [] };
   }
 };
 
 export const saveGraphState = async (state: GraphState, memoryRoot?: string): Promise<void> => {
-  const path = resolveGraphStatePath(memoryRoot);
-  await mkdir(dirname(path), { recursive: true });
-  await writeFile(path, JSON.stringify(state, null, 2) + '\n');
+  await mutateState(resolveGraphStatePath(memoryRoot), EMPTY_STATE, async () => normalizeState(state));
 };
+
+export const mutateGraphState = async (
+  mutator: (state: GraphState) => GraphState | Promise<GraphState>,
+  memoryRoot?: string,
+): Promise<GraphState> =>
+  mutateState(resolveGraphStatePath(memoryRoot), EMPTY_STATE, async (state) => {
+    const next = await mutator(normalizeState(state));
+    return normalizeState(next);
+  });
 
 /**
  * Mark an entity as needing summary refresh.
  */
 export const markEntityDirty = async (entityPath: string, memoryRoot?: string): Promise<void> => {
-  const state = await loadGraphState(memoryRoot);
-  if (!state.dirtyEntities.includes(entityPath)) {
-    state.dirtyEntities.push(entityPath);
-  }
-  await saveGraphState(state, memoryRoot);
+  await mutateGraphState(async (next) => {
+    if (!next.dirtyEntities.includes(entityPath)) {
+      next.dirtyEntities.push(entityPath);
+    }
+    return next;
+  }, memoryRoot);
 };
 
 /**
  * Clear dirty flags for specific entities after refresh.
  */
 export const clearDirtyEntities = async (paths: string[], memoryRoot?: string): Promise<void> => {
-  const state = await loadGraphState(memoryRoot);
-  const toRemove = new Set(paths);
-  state.dirtyEntities = state.dirtyEntities.filter((p) => !toRemove.has(p));
-  await saveGraphState(state, memoryRoot);
+  await mutateGraphState(async (next) => {
+    const toRemove = new Set(paths);
+    next.dirtyEntities = next.dirtyEntities.filter((p) => !toRemove.has(p));
+    return next;
+  }, memoryRoot);
 };
 
 /**
  * Update the last summary refresh timestamp.
  */
 export const updateRefreshTimestamp = async (memoryRoot?: string): Promise<void> => {
-  const state = await loadGraphState(memoryRoot);
-  state.lastSummaryRefresh = new Date().toISOString();
-  await saveGraphState(state, memoryRoot);
+  await mutateGraphState(async (next) => {
+    next.lastSummaryRefresh = new Date().toISOString();
+    return next;
+  }, memoryRoot);
 };

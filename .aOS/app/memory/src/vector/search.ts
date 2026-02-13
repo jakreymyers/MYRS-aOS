@@ -7,6 +7,7 @@ import type { Result, SearchResult } from '../types';
 interface VecSearchOptions {
   query: string;
   limit: number;
+  scope?: 'all' | 'entities' | 'notes' | 'facts';
   dbPath?: string;
 }
 
@@ -17,7 +18,7 @@ interface VecSearchOptions {
  * Returns results sorted by cosine similarity (highest first).
  */
 export const searchVec = async (options: VecSearchOptions): Promise<Result<SearchResult[]>> => {
-  const { query, limit, dbPath } = options;
+  const { query, limit, dbPath, scope = 'all' } = options;
 
   try {
     const db = openVecDb(dbPath);
@@ -55,12 +56,21 @@ export const searchVec = async (options: VecSearchOptions): Promise<Result<Searc
         file = `daily-notes/${doc.source.slice('note:'.length)}.md`;
       }
 
-      results.push({
+      const result: SearchResult = {
         content: doc.text,
         snippet: snippetify(doc.text),
         score,
         file,
-      });
+      };
+
+      const isEntity = (result.file ?? '').includes('/') && !(result.file ?? '').startsWith('daily-notes/');
+      const isNote = (result.file ?? '').startsWith('daily-notes/');
+
+      if (scope === 'entities' && !isEntity) continue;
+      if (scope === 'notes' && !isNote) continue;
+      if (scope === 'facts') continue; // vector index currently does not contain facts
+
+      results.push(result);
     }
 
     // Sort by score descending, take top N
@@ -68,7 +78,8 @@ export const searchVec = async (options: VecSearchOptions): Promise<Result<Searc
     db.close();
 
     return { success: true, data: results.slice(0, limit) };
-  } catch (error: any) {
-    return { success: false, error: error?.message ?? 'Vector search failed' };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Vector search failed';
+    return { success: false, error: message };
   }
 };

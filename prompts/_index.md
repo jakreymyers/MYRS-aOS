@@ -14,7 +14,7 @@ Agent persona, user profile, and safety guardrails. Auto-injected via CLAUDE.md.
 | File | Purpose |
 |------|---------|
 | identity.md | Agent persona, voice, decision-making style |
-| user.md | User profile, schedule, preferences, delegation model |
+| user.md | Jak's profile, schedule, preferences, delegation model |
 | guardrails.md | Hard stops, autonomy tiers, prompt injection defense |
 
 ## aos-constitution/

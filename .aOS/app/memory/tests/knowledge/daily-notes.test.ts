@@ -30,7 +30,7 @@ describe('appendDailyNote', () => {
     expect(content).toContain('# 2026-02-07');
     expect(content).toContain('## Session abc12345 (14:30)');
     expect(content).toContain('Reviewed memory upgrade plan.');
-    expect(content).toContain('_5 facts extracted → areas/people/jak, projects/memory-v3_');
+    expect(content).toContain('_5 facts → areas/people/jak, projects/memory-v3_');
   });
 
   test('appends to existing file', async () => {
@@ -90,7 +90,38 @@ describe('appendDailyNote', () => {
     // Should contain the updated content
     expect(content).toContain('Updated extraction with more facts.');
     expect(content).not.toContain('First extraction.');
-    expect(content).toContain('_7 facts extracted');
+    expect(content).toContain('_7 facts →');
+  });
+
+  test('shows per-entity counts when entityFactCounts provided', async () => {
+    await appendDailyNote({
+      dir: testDir,
+      date: '2026-02-10',
+      sessionId: 'counts-test-session',
+      time: '11:00',
+      summary: 'Testing per-entity counts.',
+      factCount: 7,
+      entityPaths: ['people/jane', 'projects/alpha'],
+      entityFactCounts: { 'people/jane': 4, 'projects/alpha': 3 },
+    });
+
+    const content = await readFile(join(testDir, '2026-02-10.md'), 'utf8');
+    expect(content).toContain('_7 facts → people/jane (4), projects/alpha (3)_');
+  });
+
+  test('falls back to entity list when no entityFactCounts', async () => {
+    await appendDailyNote({
+      dir: testDir,
+      date: '2026-02-10',
+      sessionId: 'nocount-session',
+      time: '12:00',
+      summary: 'No counts provided.',
+      factCount: 3,
+      entityPaths: ['people/bob', 'projects/beta'],
+    });
+
+    const content = await readFile(join(testDir, '2026-02-10.md'), 'utf8');
+    expect(content).toContain('_3 facts → people/bob, projects/beta_');
   });
 
   test('handles zero facts gracefully', async () => {
@@ -108,5 +139,25 @@ describe('appendDailyNote', () => {
     expect(content).toContain('Quick check-in.');
     // No facts line when count is 0 and no entities
     expect(content).not.toContain('_0 facts');
+  });
+
+  test('includes decisions and lessons when provided', async () => {
+    await appendDailyNote({
+      dir: testDir,
+      date: '2026-02-12',
+      sessionId: 'decision-session',
+      time: '16:20',
+      summary: 'Captured decision and lesson output.',
+      factCount: 2,
+      entityPaths: ['projects/data-platform'],
+      decisions: ['Chose Snowflake over Redshift for cost efficiency'],
+      lessons: ['Validate entity path shape before persisting facts'],
+    });
+
+    const content = await readFile(join(testDir, '2026-02-12.md'), 'utf8');
+    expect(content).toContain('Recent decisions:');
+    expect(content).toContain('- Chose Snowflake over Redshift for cost efficiency');
+    expect(content).toContain('Lessons learned:');
+    expect(content).toContain('- Validate entity path shape before persisting facts');
   });
 });

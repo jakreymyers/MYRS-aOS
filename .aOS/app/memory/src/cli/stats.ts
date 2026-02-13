@@ -5,7 +5,8 @@ import { resolveMemoryRoot, resolveDailyLogDir, resolveSessionLogDir, resolveVec
 import { listEntities, resolveEntityDir } from '../knowledge/entities';
 import { loadFacts } from '../knowledge/facts';
 import { tierFacts } from '../knowledge/decay';
-import { loadGraphState, saveGraphState } from '../knowledge/state';
+import { loadGraphState } from '../knowledge/state';
+import type { SessionStateFile } from '../types';
 
 /**
  * Show memory system stats: session state, daily notes, knowledge graph, vector index.
@@ -99,15 +100,6 @@ export const runStats = async (args: string[]): Promise<void> => {
   }
 
   const graphState = await loadGraphState();
-  graphState.entityStats = {
-    total: entities.length,
-    projects: bucketCounts.projects ?? 0,
-    people: bucketCounts.people ?? 0,
-    areas: bucketCounts.areas ?? 0,
-    resources: bucketCounts.resources ?? 0,
-    archives: bucketCounts.archives ?? 0,
-  };
-  await saveGraphState(graphState);
   console.log(`Dirty entities: ${graphState.dirtyEntities.length}`);
   console.log(`Last summary refresh: ${graphState.lastSummaryRefresh ?? 'never'}`);
   console.log(`Last extraction: ${graphState.lastExtraction ?? 'never'}`);
@@ -127,7 +119,7 @@ export const runStats = async (args: string[]): Promise<void> => {
 };
 
 const printJsonStats = async (
-  state: any,
+  state: SessionStateFile,
   sessionCount: number,
   digestedCount: number
 ): Promise<void> => {

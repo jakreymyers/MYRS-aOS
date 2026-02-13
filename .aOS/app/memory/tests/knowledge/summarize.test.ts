@@ -13,7 +13,9 @@ const makeMeta = (overrides: Partial<EntityMeta> = {}): EntityMeta => ({
   ...overrides,
 });
 
-const makeTiered = (tier: 'hot' | 'warm' | 'cold', overrides: Partial<TieredFact> = {}): TieredFact => ({
+const makeTiered = (tier: 'hot' | 'warm' | 'cold', overrides: Partial<TieredFact> = {}): TieredFact => {
+  const { importance, ...rest } = overrides;
+  return {
   id: 'jane-001',
   fact: `A ${tier} fact`,
   category: 'status',
@@ -25,8 +27,10 @@ const makeTiered = (tier: 'hot' | 'warm' | 'cold', overrides: Partial<TieredFact
   lastAccessed: '2026-02-01',
   accessCount: 5,
   tier,
-  ...overrides,
-});
+  importance: importance ?? 1,
+  ...rest,
+  };
+};
 
 describe('generateSummary', () => {
   test('includes hot facts in Current section', async () => {
