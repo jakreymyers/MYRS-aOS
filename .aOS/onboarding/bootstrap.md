@@ -5,7 +5,7 @@ Follow these phases in order. Update the status below as you complete each phase
 
 ## Onboarding Status
 
-- [ ] Phase 1: System Verification
+- [ ] Phase 1: Install & Verify
 - [ ] Phase 2: Personalization Interview
 - [ ] Phase 3: Google Workspace Connection
 - [ ] Phase 4: Context Population
@@ -16,15 +16,35 @@ what's next, and what will be expected of them at each phase.
 
 ---
 
-## Phase 1: System Verification
+## Phase 1: Install & Verify
 
-Verify setup.sh was run successfully:
-- Run `memory stats` — should succeed with 0 entities
-- Check directory structure exists (context/, memory/, workspace/)
-- Verify bun and dependencies are installed
-- Run `.aOS/onboarding/verify-setup.sh` for a quick health check
+This phase installs dependencies and prepares the workspace. The setup script
+handles everything — you just need to run it and verify the result.
 
-If anything is missing, guide the user through fixing it.
+### Steps:
+
+1. **Check prerequisites** — verify `bun` is installed:
+   ```bash
+   command -v bun && bun --version
+   ```
+   If `bun` is missing, tell the user to install it first:
+   `curl -fsSL https://bun.sh/install | bash` — then restart their terminal and reopen Claude Code.
+
+2. **Run setup** — this installs deps, creates directories, and initializes the memory system:
+   ```bash
+   bash .aOS/onboarding/setup.sh
+   ```
+   This takes ~30 seconds. On first run it may download the embedding model (~2GB).
+
+3. **Verify** — run the health check to confirm everything is working:
+   ```bash
+   bash .aOS/onboarding/verify-setup.sh
+   ```
+   Expected: bun OK, directories OK, `user.md` MISSING (expected — created in Phase 2),
+   `identity.md` MISSING (expected), `MEMORY.md` OK, `memory stats` succeeds.
+
+If anything fails, read the error output and guide the user through fixing it.
+Common issues: missing Homebrew SQLite on macOS (`brew install sqlite`).
 
 When complete, mark Phase 1 done and proceed to Phase 2.
 

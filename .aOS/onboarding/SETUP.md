@@ -30,14 +30,13 @@ summary: How to set up aOS from scratch — prerequisites, installation, and age
 git clone https://github.com/MYRS-aOS/aOS.git my-aos
 cd my-aos
 
-# 2. Run setup (installs deps, creates dirs)
-.aOS/onboarding/setup.sh
-
-# 3. Open Claude Code — the agent guides you from here
+# 2. Open Claude Code — the agent handles everything from here
 claude
 ```
 
-When Claude Code starts, say **"let's get started"** and the agent will walk you through the rest.
+When Claude Code starts, say **"let's get started"** and the agent will install dependencies, set up the workspace, and walk you through personalization.
+
+> **Prerequisite:** [Bun](https://bun.sh) must be installed. The agent will check for it and guide you if it's missing.
 
 ## What to Expect
 
@@ -45,7 +44,7 @@ The agent guides you through 5 onboarding phases:
 
 | Phase | What happens | Time |
 |-------|-------------|------|
-| **1. System Verification** | Agent checks that setup ran correctly | ~1 min |
+| **1. Install & Verify** | Agent runs setup, installs deps, verifies system | ~2 min |
 | **2. Personalization** | Agent interviews you, generates your config files | ~10 min |
 | **3. Google Connection** | Agent walks you through OAuth setup for Gmail/Calendar/Drive | ~10 min |
 | **4. Context Population** | Agent explores your email/calendar to seed your knowledge graph | ~15 min |
