@@ -1,9 +1,9 @@
 [
   {
-    "id": "meetings-001",
-    "fact": "Meetings Department led by Hunter Clemens, manages APS conferences, events, and internal meetings",
+    "id": "editorial-operations-001",
+    "fact": "Editorial Operations department led by Beth Craanen",
     "category": "status",
-    "importance": 1,
+    "importance": 2,
     "timestamp": "2026-02-13",
     "source": "user-correction-2026-02-13",
     "status": "active",

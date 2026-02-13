@@ -1,172 +1,145 @@
 [
   {
-    "fact": "American Physical Society \u2014 nonprofit scientific society, Jak's employer",
-    "category": "relationship",
+    "id": "aps-001",
+    "fact": "American Physical Society (APS) is a nonprofit scientific society and premier physics publishing organization",
+    "category": "context",
+    "importance": 2,
     "timestamp": "2026-02-07",
     "source": "google-drive-seed-2026-02-07",
     "status": "active",
     "supersededBy": null,
     "relatedEntities": [],
-    "id": "aps-001",
-    "lastAccessed": "2026-02-10",
-    "accessCount": 1
+    "lastAccessed": "2026-02-13",
+    "accessCount": 2
   },
   {
-    "fact": "2026 strategic portfolio: 42 initiatives across 5 value propositions (Enterprise Resilience, Knowledge Creation, Culture & Talent, Professional Experience, Advocacy)",
-    "category": "context",
-    "timestamp": "2026-02-07",
-    "source": "google-drive-seed-2026-02-07",
-    "status": "active",
-    "supersededBy": null,
-    "relatedEntities": [
-      "projects/soar-eppmo"
-    ],
     "id": "aps-002",
-    "lastAccessed": "2026-02-10",
-    "accessCount": 1
-  },
-  {
-    "fact": "IS department is most heavily depended upon shared service (31 initiative references across the strategic portfolio)",
+    "fact": "2026 strategic portfolio: 42 initiatives across 5 strategic themes (Enterprise Resilience, Knowledge Creation, Culture & Talent, Professional Experience, Advocacy)",
     "category": "context",
+    "importance": 2,
     "timestamp": "2026-02-07",
     "source": "google-drive-seed-2026-02-07",
     "status": "active",
     "supersededBy": null,
-    "relatedEntities": [
-      "areas/departments/information-systems"
-    ],
+    "relatedEntities": [],
+    "lastAccessed": "2026-02-13",
+    "accessCount": 2
+  },
+  {
     "id": "aps-003",
-    "lastAccessed": "2026-02-10",
-    "accessCount": 1
-  },
-  {
-    "fact": "Publications processes ~48,000 manuscripts annually via PRISM",
+    "fact": "IS department is the most heavily depended upon shared service (31 initiative references across the strategic portfolio)",
     "category": "context",
+    "importance": 2,
     "timestamp": "2026-02-07",
     "source": "google-drive-seed-2026-02-07",
     "status": "active",
     "supersededBy": null,
-    "relatedEntities": [
-      "projects/prism-modernization"
-    ],
+    "relatedEntities": ["areas/departments/information-systems"],
+    "lastAccessed": "2026-02-13",
+    "accessCount": 2
+  },
+  {
     "id": "aps-004",
-    "lastAccessed": "2026-02-10",
+    "fact": "Publications processes ~67,000 manuscripts annually via PRISM, the peer review and editorial management system",
+    "category": "context",
+    "importance": 2,
+    "timestamp": "2026-02-13",
+    "source": "user-correction-2026-02-13",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": ["projects/prism"],
+    "lastAccessed": "2026-02-13",
     "accessCount": 1
   },
   {
+    "id": "aps-005",
     "fact": "Senior Leadership Team (SLT) is the body of chiefs: CFO/COO, Chief HR Officer, Chief External Affairs Officer, Chief Marketing Officer, Chief Publications Officer, and others",
     "category": "context",
+    "importance": 2,
     "timestamp": "2026-02-10",
     "source": "user clarification",
     "status": "active",
     "supersededBy": null,
     "relatedEntities": [],
-    "id": "aps-005",
-    "lastAccessed": "2026-02-10",
-    "accessCount": 1
+    "lastAccessed": "2026-02-13",
+    "accessCount": 2
   },
   {
-    "fact": "Core Management Team (CMT) is the body of directors and department heads \u2014 functional leaders across the organization",
-    "category": "context",
-    "timestamp": "2026-02-10",
-    "source": "user clarification",
-    "status": "active",
-    "supersededBy": null,
-    "relatedEntities": [
-      "areas/teams/cmt"
-    ],
     "id": "aps-006",
-    "lastAccessed": "2026-02-10",
-    "accessCount": 1
+    "fact": "Core Management Team (CMT) is the body of directors and department heads — functional leaders across the organization",
+    "category": "context",
+    "importance": 2,
+    "timestamp": "2026-02-10",
+    "source": "user clarification",
+    "status": "active",
+    "supersededBy": null,
+    "relatedEntities": ["areas/teams/cmt"],
+    "lastAccessed": "2026-02-13",
+    "accessCount": 2
   },
   {
-    "fact": "Departments include editorial, sales, EPPMO, international affairs, information systems, human resources, governance, marketing, finance, membership, publications, and strategic communications",
+    "id": "aps-007",
+    "fact": "Departments: Development, Editorial, Editorial Operations, EPPMO, Ethics, Executive Office, Finance, Global Sales, Human Resources, Information Systems, International Affairs, Marketing, Meetings, Membership, Careers Education and Inclusive Communities, Public Affairs, Publishing, Strategic Communications, Inclusion and Collaboration",
     "category": "context",
-    "timestamp": "2026-02-09",
-    "source": "session-a924d713",
+    "importance": 2,
+    "timestamp": "2026-02-13",
+    "source": "user-correction-2026-02-13",
     "status": "active",
     "supersededBy": null,
     "relatedEntities": [],
-    "id": "aps-007",
-    "lastAccessed": "2026-02-10",
+    "lastAccessed": "2026-02-13",
     "accessCount": 1
   },
   {
+    "id": "aps-008",
     "fact": "All Staff meetings are APS-wide meetings with all staff. All Minds is an IS department-specific staff meeting. These are separate from the Annual Leadership Meeting (ALM), which is a broader event.",
     "category": "context",
+    "importance": 1,
     "timestamp": "2026-02-10",
     "source": "user clarification",
     "status": "active",
     "supersededBy": null,
-    "relatedEntities": [
-      "areas/departments/information-systems"
-    ],
-    "id": "aps-008",
-    "lastAccessed": "2026-02-10",
-    "accessCount": 1
+    "relatedEntities": ["areas/departments/information-systems"],
+    "lastAccessed": "2026-02-13",
+    "accessCount": 2
   },
   {
-    "fact": "Organizational culture exhibits significant skepticism about AI adoption \u2014 concerns include job displacement, environmental impact, ethics, copyright, and whether AI improves outcomes. Senior leadership conservative on AI rollout.",
+    "id": "aps-009",
+    "fact": "Organizational culture exhibits significant skepticism about AI adoption — concerns include job displacement, environmental impact, ethics, copyright, and whether AI improves outcomes. Senior leadership conservative on AI rollout.",
     "category": "context",
+    "importance": 2,
     "timestamp": "2026-02-09",
     "source": "2026-02-09",
     "status": "active",
     "supersededBy": null,
-    "relatedEntities": [
-      "projects/ai-strategy"
-    ],
-    "id": "aps-009",
-    "lastAccessed": "2026-02-10",
-    "accessCount": 1
+    "relatedEntities": ["projects/ai-strategy"],
+    "lastAccessed": "2026-02-13",
+    "accessCount": 2
   },
   {
-    "fact": "Organizational value streams mapped (document: Value Streams @ APS by Kimi, July 2025)",
-    "category": "context",
-    "timestamp": "2026-02-09",
-    "source": "drive-research",
-    "status": "active",
-    "supersededBy": null,
-    "relatedEntities": [
-      "resources/value-streams"
-    ],
     "id": "aps-010",
-    "lastAccessed": "2026-02-10",
-    "accessCount": 1
-  },
-  {
     "fact": "Brand palette: Brand Blue (#00538B), Brand Teal (#00B4D8), Purple (#1F1C6B), Orange (#FF8F1C); typography: Jost (sans-serif) and Faustina (serif)",
     "category": "context",
+    "importance": 1,
     "timestamp": "2026-02-09",
     "source": "2026-02-09",
     "status": "active",
     "supersededBy": null,
     "relatedEntities": [],
+    "lastAccessed": "2026-02-13",
+    "accessCount": 2
+  },
+  {
     "id": "aps-011",
-    "lastAccessed": "2026-02-10",
-    "accessCount": 1
-  },
-  {
-    "fact": "No meeting transcript intelligence tools (Fathom or equivalent) in use. Meetings documented through shared Google Docs with running agendas.",
+    "fact": "Fathom is the primary meeting transcript intelligence tool. Zoom's transcription and AI summarization tools are also used. Some meetings are documented through shared Google Docs with running agendas.",
     "category": "context",
-    "timestamp": "2026-02-09",
-    "source": "drive-research",
+    "importance": 1,
+    "timestamp": "2026-02-13",
+    "source": "user-correction-2026-02-13",
     "status": "active",
     "supersededBy": null,
     "relatedEntities": [],
-    "id": "aps-012",
-    "lastAccessed": "2026-02-10",
-    "accessCount": 1
-  },
-  {
-    "fact": "Established vendor RFI/RFP evaluation process used across multiple projects (PWT in 2025-2026, CDP in 2024)",
-    "category": "context",
-    "timestamp": "2026-02-09",
-    "source": "manual-ingestion-2026-02-08",
-    "status": "active",
-    "supersededBy": null,
-    "relatedEntities": [],
-    "id": "aps-013",
-    "lastAccessed": "2026-02-10",
+    "lastAccessed": "2026-02-13",
     "accessCount": 1
   }
 ]

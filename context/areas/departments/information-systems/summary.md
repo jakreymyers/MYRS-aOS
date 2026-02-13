@@ -1,14 +1,14 @@
 ---
-title: "IS — Information Systems Department"
+title: "Information Systems"
 type: department
 para: areas/departments/information-systems
 created: 2026-02-08
-updated: 2026-02-09
+updated: 2026-02-13
 tags: [aps, information-systems, department, technology]
 ---
-# Information Systems Department
+# Information Systems
 
-The Information Systems (IS) department at APS, led by CIO Mark Doyle and Director Jak Myers, comprises five core functions (product, engineering, technical operations, customer experience, and digital experience) with ~41 staff members. The department empowers APS to advance physics through product development, user-centered design, innovative engineering, and exceptional support.
+APS Information Systems department led by CIO Mark Doyle and Director Jak Myers. Five core functions with ~41 staff. Most heavily depended-upon shared service across APS's strategic portfolio.
 
 ## Current
 
@@ -18,21 +18,13 @@ The Information Systems (IS) department at APS, led by CIO Mark Doyle and Direct
 - ~41 total staff across all functions
 
 **Core Functions**
-- **Digital Engineering** (Mike Papile): Pre-Pub Systems, Digital Services, Data Platform & Web Solutions teams
-- **Product Development & Delivery** (Jen Keating): Product owners for Digital Experience, PRISM/Journals, Salesforce/Nimble, Data Platform; IT PMO team
-- **Experience Design** (Chris Coleman): UX/UI Design team
-- **Technical Operations** (Dan Hudson): System Admin and Technical Support teams
-- **Customer Experience** (Jessica Stepnoski): CX Systems and Customer Support teams
+- **Digital Engineering** (Mike Papile): Pre-Pub Systems, Digital Services, Data Platform & Web Solutions
+- **Product Development & Delivery** (Jen Keating): Product owners and IT PMO
+- **Experience Design** (Chris Coleman): UX/UI Design
+- **Technical Operations** (Dan Hudson): System Admin and Technical Support
+- **Customer Experience** (Jessica Stepnoski): CX Systems and Customer Support
 
 **Strategic Priorities (2026)**
-- Seven strategic themes: Product Management/UX/Portfolio, AI & Automation, Cybersecurity/Data Governance/Risk, BI & Data Culture, Systems Rationalization, Operational Efficiency, Psychological Safety & Team Culture
-- Managing 41 high-involvement assignments across 42 strategic initiatives; 31 require technology enablement with Q2 peak of 32 concurrent initiatives
-- Portfolio: 84 total projects, 26,108 tasks, 53 key results on track
-
-**Cross-functional Collaboration**
-- Co-sponsors DAWG (Data Analytics), DataWranglers (Salesforce/Nimble), and Workflow Optimization groups
-- Collaborates with HR on identity & access lifecycle automation, policy development, and onboarding workflows
-
-**AI Capability Maturity**
-- Significant capability gap between advanced daily AI users (Jak Myers, Mike Papile) and occasional dabblers
-- Technical staff concerns about code hallucination and quality assurance with agentic coding assistants
+- Seven themes: Product Management/UX/Portfolio, AI & Automation, Cybersecurity/Data Governance/Risk, BI & Data Culture, Systems Rationalization, Operational Efficiency, Psychological Safety & Team Culture
+- 31 initiatives require IS technology enablement with Q2 peak of 32 concurrent
+- Co-sponsors DAWG, DataWranglers, and Workflow Optimization cross-functional groups
