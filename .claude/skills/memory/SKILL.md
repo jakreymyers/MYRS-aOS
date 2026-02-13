@@ -15,10 +15,10 @@ allowed-tools: Bash(memory:*)
 
 ## Invocation
 
-Always run via wrapper path:
+Always run via relative path from project root:
 
 ```bash
-"$CLAUDE_PROJECT_DIR"/.aOS/app/memory/memory <command> [args]
+.aOS/app/memory/memory <command> [args]
 ```
 
 ## Primary Retrieval Model
