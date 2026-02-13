@@ -121,7 +121,7 @@ describe('parseExtractionResponse', () => {
     expect(result.facts[0].fact.status).toBe('active');
     expect(result.facts[0].fact.supersededBy).toBeNull();
     expect(result.facts[0].fact.relatedEntities).toEqual([]);
-    expect(result.newEntities[0].type).toBe('unknown');
+    expect(result.newEntities[0].type).toBe('person');  // inferred from people/ path
     expect(result.newEntities[0].bucket).toBe('people');
     expect(result.newEntities[0].tags).toEqual([]);
     expect(result.facts[0].fact.importance).toBe(1);
@@ -206,6 +206,31 @@ describe('parseExtractionResponse', () => {
 
     const result = parseExtractionResponse(input);
     expect(result.facts[0].fact.supersededBy).toBeNull();
+  });
+
+  test('infers entity type from path when LLM provides unknown/auto/missing', () => {
+    const input = JSON.stringify({
+      facts: [],
+      newEntities: [
+        { path: 'people/jane', name: 'Jane', type: 'unknown' },
+        { path: 'projects/alpha', name: 'Alpha', type: 'auto' },
+        { path: 'areas/companies/acme', name: 'Acme' },  // missing type
+        { path: 'areas/departments/eng', name: 'Engineering', type: 'unknown' },
+        { path: 'areas/teams/platform', name: 'Platform', type: 'unknown' },
+        { path: 'resources/ai-tools', name: 'AI Tools', type: 'auto' },
+        { path: 'people/bob', name: 'Bob', type: 'person' },  // explicit — preserved
+      ],
+      sessionSummary: '',
+    });
+
+    const result = parseExtractionResponse(input);
+    expect(result.newEntities[0].type).toBe('person');
+    expect(result.newEntities[1].type).toBe('project');
+    expect(result.newEntities[2].type).toBe('company');
+    expect(result.newEntities[3].type).toBe('department');
+    expect(result.newEntities[4].type).toBe('team');
+    expect(result.newEntities[5].type).toBe('topic');
+    expect(result.newEntities[6].type).toBe('person');  // explicit preserved
   });
 
   test('captures decisions and lessons arrays when present', () => {

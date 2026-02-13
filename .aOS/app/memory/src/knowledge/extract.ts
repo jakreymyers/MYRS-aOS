@@ -7,6 +7,22 @@ export type ExtractLlmCaller = (prompt: string) => Promise<string>;
 
 const KEBAB_SEGMENT = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
+/** Derive entity type from PARA path when LLM provides unknown/auto/missing. */
+const inferTypeFromPath = (path: string): string => {
+  const parts = path.split('/');
+  if (parts[0] === 'people') return 'person';
+  if (parts[0] === 'projects') return 'project';
+  if (parts[0] === 'resources') return 'topic';
+  if (parts[0] === 'archives') return 'archive';
+  if (parts[0] === 'areas') {
+    if (parts[1] === 'companies') return 'company';
+    if (parts[1] === 'departments') return 'department';
+    if (parts[1] === 'teams') return 'team';
+    return 'area';
+  }
+  return 'unknown';
+};
+
 const isValidEntityPath = (path: string): boolean => {
   const parts = path.split('/');
   if (parts.length < 2 || parts.length > 3) return false;
@@ -111,13 +127,18 @@ const validateExtraction = (parsed: unknown): ExtractionResult => {
         typeof e.path === 'string'
         && typeof e.name === 'string'
         && isValidEntityPath(e.path)
-      ).map((e) => ({
-        path: String(e.path),
-        name: String(e.name),
-        type: typeof e.type === 'string' ? e.type : 'unknown',
-        bucket: (typeof e.bucket === 'string' ? e.bucket : String(e.path).split('/')[0] ?? 'resources') as ParaBucket,
-        tags: Array.isArray(e.tags) ? e.tags.filter((tag: unknown): tag is string => typeof tag === 'string') : [],
-      })),
+      ).map((e) => {
+        const path = String(e.path);
+        const rawType = typeof e.type === 'string' ? e.type : '';
+        const type = (rawType && rawType !== 'unknown' && rawType !== 'auto') ? rawType : inferTypeFromPath(path);
+        return {
+          path,
+          name: String(e.name),
+          type,
+          bucket: (typeof e.bucket === 'string' ? e.bucket : path.split('/')[0] ?? 'resources') as ParaBucket,
+          tags: Array.isArray(e.tags) ? e.tags.filter((tag: unknown): tag is string => typeof tag === 'string') : [],
+        };
+      }),
     sessionSummary,
     decisions,
     lessons,

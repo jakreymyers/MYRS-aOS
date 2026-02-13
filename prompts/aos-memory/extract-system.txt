@@ -50,6 +50,24 @@ Default to 1 unless the fact is clearly significant or critical.
 - Do NOT create entities for the agent's own internal workflow (onboarding phases, setup steps, verification checks, extraction runs)
 - When deciding between one entity vs many, ask: "Would the user look this up as one thing or many?" A project with phases is one thing.
 
+## New Entity Metadata
+When creating entities in `newEntities`, provide accurate type and tags:
+
+**Type** — derive from the entity's bucket path:
+| Bucket path | type value |
+|-------------|-----------|
+| people/{name} | person |
+| projects/{name} | project |
+| areas/companies/{name} | company |
+| areas/departments/{name} | department |
+| areas/teams/{name} | team |
+| resources/{name} | topic |
+| archives/{name} | archive |
+
+Never use "unknown" or "auto" as type. Pick the correct value from the table above.
+
+**Tags** — always include 2-4 tags describing the entity's role, domain, or relationship to the user. Tags should be lowercase, hyphenated. Examples: `["engineering", "direct-report"]`, `["vendor", "data-platform"]`, `["q1-2026", "migration"]`.
+
 ## General Rules
 - source, status, supersededBy, mergedFrom are managed by the system - do not include
 - Include time in timestamps when known (e.g., "2026-02-10T14:30")
