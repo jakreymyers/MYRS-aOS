@@ -2,7 +2,7 @@ import { describe, expect, test, beforeEach, afterEach } from 'bun:test';
 import { mkdtemp, rm, readFile, writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { createEntity, entityExists, getEntity, listEntities, moveEntity, resolveEntityDir } from '../../src/knowledge/entities';
+import { createEntity, entityExists, getEntity, listEntities, moveEntity, resolveEntityDir, isValidEntityPath } from '../../src/knowledge/entities';
 
 let testRoot: string;
 
@@ -20,7 +20,32 @@ afterEach(async () => {
   await rm(testRoot, { recursive: true, force: true });
 });
 
+describe('isValidEntityPath', () => {
+  test('accepts valid PARA paths', () => {
+    expect(isValidEntityPath('projects/alpha')).toBe(true);
+    expect(isValidEntityPath('people/jane-smith')).toBe(true);
+    expect(isValidEntityPath('areas/companies/acme')).toBe(true);
+    expect(isValidEntityPath('areas/departments/engineering')).toBe(true);
+  });
+
+  test('rejects invalid paths', () => {
+    expect(isValidEntityPath('--help')).toBe(false);
+    expect(isValidEntityPath('-h')).toBe(false);
+    expect(isValidEntityPath('invalid')).toBe(false);
+    expect(isValidEntityPath('notabucket/thing')).toBe(false);
+    expect(isValidEntityPath('projects/UPPERCASE')).toBe(false);
+    expect(isValidEntityPath('projects/has spaces')).toBe(false);
+    expect(isValidEntityPath('')).toBe(false);
+  });
+});
+
 describe('createEntity', () => {
+  test('rejects invalid entity paths', async () => {
+    expect(
+      createEntity({ path: '--help', name: 'Help', type: 'unknown', bucket: 'projects' as any, contextRoot: testRoot })
+    ).rejects.toThrow('Invalid entity path');
+  });
+
   test('creates directory with summary.md and items.json', async () => {
     const meta = await createEntity({
       path: 'areas/people/jane',

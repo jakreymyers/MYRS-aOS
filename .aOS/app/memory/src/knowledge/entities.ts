@@ -16,6 +16,20 @@ const PARA_BUCKETS: Record<ParaBucket, string> = {
   people: 'people',
 };
 
+const VALID_BUCKETS = new Set(Object.keys(PARA_BUCKETS));
+const SLUG_RE = /^[a-z0-9][a-z0-9-]*$/;
+
+/**
+ * Validate an entity path has correct structure:
+ * {bucket}/[{sub}/]{slug} — all segments lowercase-kebab, valid bucket prefix.
+ */
+export const isValidEntityPath = (path: string): boolean => {
+  const segments = path.split('/').filter(Boolean);
+  if (segments.length < 2) return false;
+  if (!VALID_BUCKETS.has(segments[0])) return false;
+  return segments.every((s) => SLUG_RE.test(s));
+};
+
 /**
  * Resolve the absolute directory path for an entity.
  * Entity paths are relative to context root (e.g., "areas/people/jane").
@@ -35,6 +49,11 @@ export const createEntity = async (options: {
   contextRoot?: string;
 }): Promise<EntityMeta> => {
   const { path, name, type, bucket, tags = [], contextRoot } = options;
+
+  if (!isValidEntityPath(path)) {
+    throw new Error(`Invalid entity path: "${path}" — must be {bucket}/{slug} with lowercase-kebab segments`);
+  }
+
   const dir = resolveEntityDir(path, contextRoot);
   const today = new Date().toISOString().slice(0, 10);
 

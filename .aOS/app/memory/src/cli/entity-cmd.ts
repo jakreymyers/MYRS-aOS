@@ -152,8 +152,11 @@ const entityShow = async (args: string[]): Promise<void> => {
 
 const entityCreate = async (args: string[]): Promise<void> => {
   const entityPath = args[0];
-  if (!entityPath) {
+  if (!entityPath || entityPath.startsWith('-')) {
     console.error('Usage: memory entity create <path> --type <type> --name <name> [--tags tag1,tag2]');
+    if (entityPath && entityPath !== '--help' && entityPath !== '-h') {
+      console.error(`Invalid entity path: ${entityPath}`);
+    }
     process.exitCode = 1;
     return;
   }
